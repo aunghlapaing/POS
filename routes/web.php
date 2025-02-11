@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+require_once __DIR__.'/admin.php';
+require_once __DIR__.'/user.php';
+
 Route::get('/', function () {
     return view('welcome');
 });

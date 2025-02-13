@@ -29,6 +29,18 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         return redirect()->intended(route('dashboard', absolute: false));
+
+        //default authorization without middleware
+        // if ($request->user()->role == 'admin')
+        // {
+        //     return view ('customize.admin');
+        // }
+
+        // if ($request->user()->role == 'user')
+        // {
+        //     return view ('customize.user');
+        // }        
+        
     }
 
     /**

@@ -18,12 +18,12 @@ class SuperAdminMiddleware
     {
         
         //this stage is login stage, so we can use Auth
-        if (Auth::user()->role == 'superadmin')
-        {
-            return $next($request);
-        }
+        // if (Auth::user()->role == 'superadmin')
+        // {
+        //     return $next($request);
+        // }
 
-        return back()->with(['authMessage'=>'You are super admin!']);
+        // return back()->with(['authMessage'=>'You are super admin!']);
 
     }
 }

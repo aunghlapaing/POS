@@ -9,9 +9,13 @@ require_once __DIR__.'/admin.php';
 require_once __DIR__.'/user.php';
 
 //social login route
-Route::get('/auth/redirect', [SocialLoginController::class, 'redirect'])->name ('socialRedirect');
- 
-Route::get('/auth/callback', [SocialLoginController::class, 'callback'])->name ('socialCallBack');
+
+Route::group(['prefix'=>'auth'], function(){
+    Route::get('{provider}/redirect', [SocialLoginController::class, 'redirect'])->name ('socialRedirect');
+    Route::get('{provider}/callback', [SocialLoginController::class, 'callback'])->name ('socialCallBack');
+});
+
+// Route::get ('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])->name ('socialRedirect');
 
 Route::get('/', function () {
     return view('welcome');

@@ -17,11 +17,11 @@ class UserMiddleware
     {
         
 
-        if (Auth::user()->role == 'user')
-        {
-            return $next($request);
-        }
+        // if (Auth::user()->role == 'user')
+        // {
+        //     return $next($request);
+        // }
 
-        return back()->with(['authMessage'=>'You are user!']);
+        // return back()->with(['authMessage'=>'You are user!']);
     }
 }

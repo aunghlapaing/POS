@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
@@ -14,22 +16,26 @@ class SocialLoginController extends Controller
 
     public function callback ($provider)
     {
-        $socialUser = Socialite::driver($provider)->user();
+        $socialUserData = Socialite::driver($provider)->user();
 
-        dd($socialUser);
+        // dd($provider);
 
-        // $user = User::updateOrCreate([
-        //     'github_id' => $githubUser->id,
-        // ], [
-        //     'name' => $githubUser->name,
-        //     'email' => $githubUser->email,
-        //     'github_token' => $githubUser->token,
-        //     'github_refresh_token' => $githubUser->refreshToken,
-        // ]);
+        // dd($socialUserData);
+
+        $user = User::updateOrCreate([
+            'provider_id' => $socialUserData->id
+        ], [
+            'first_name' => $socialUserData->name,
+            'email' => $socialUserData->email,
+            'profile' => $socialUserData->picture,
+            'provider' => $provider,
+            'provider_id' => $socialUserData->id,
+            'provider_token' => $socialUserData->token
+        ]);
 
      
-        // Auth::login($user);
+        Auth::login($user);
      
-        // return redirect('/dashboard');
+        return to_route('dashboard');
     }
 }

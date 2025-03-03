@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 
-Route:: group (['prefix'=> 'user'], function(){
+Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
     Route::get('home', [UserController::class, 'userHome'])->name('userHome');
+    Route::get('testAuth', [UserController::class, 'testAuth'])->name('testAuth');
 });

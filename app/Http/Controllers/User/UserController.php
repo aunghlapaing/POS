@@ -11,4 +11,9 @@ class UserController extends Controller
     public function userHome (){
         return view('user.home.list');
     }
+
+    public function testAuth()
+    {
+        return view('user.testAuth');
+    }
 }

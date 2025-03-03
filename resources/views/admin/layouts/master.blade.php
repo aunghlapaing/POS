@@ -20,13 +20,16 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{asset('admin/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
+        <form action="" method="post">
+            
+        </form>
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -48,7 +51,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
+                <a class="nav-link" href="{{ route('adminCategory') }}"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
             </li>
 
             <li class="nav-item">
@@ -56,7 +59,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-layer-group"></i><span>Product Details </span></a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-layer-group"></i><span>Product Details
+                    </span></a>
             </li>
 
             <li class="nav-item">
@@ -64,7 +68,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method </span></a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
+                    </span></a>
             </li>
 
             <li class="nav-item">
@@ -80,11 +85,18 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i></i></i><span>Change Password </span></a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i></i></i><span>Change Password</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></i><span>Logout </span></a>
+            <li class="nav-item text-center">
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-dark text-white"  value="Logout">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </button>
+                </form>
+                {{-- <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></i><span>Logout</span></a> --}}
             </li>
         </ul>
         <!-- End of Sidebar -->
@@ -97,7 +109,7 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -106,7 +118,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->first_name }} </span>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -125,9 +137,15 @@
                                     Change Password
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-dark teext-white w-100" value="Logout">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </button>
+                                    </form>
                                 </a>
                             </div>
                         </li>
@@ -143,22 +161,22 @@
     </div>
 
 
-                <!-- Bootstrap core JavaScript-->
-                <script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>
-                <script src="{{asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-                <!-- Core plugin JavaScript-->
-                <script src="{{asset('admin/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-                <!-- Custom scripts for all pages-->
-                <script src="{{asset('admin/js/sb-admin-2.min.js')}}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('admin/js/sb-admin-2.min.js') }}"></script>
 
-                <!-- Page level plugins -->
-                <script src="{{asset('admin/vendor/chart.js/Chart.min.js')}}"></script>
+    <!-- Page level plugins -->
+    <script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
 
-                <!-- Page level custom scripts -->
-                <script src="{{asset('admin/js/demo/chart-area-demo.js')}}"></script>
-                <script src="{{asset('admin/js/demo/chart-pie-demo.js')}}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
 
 </body>
 

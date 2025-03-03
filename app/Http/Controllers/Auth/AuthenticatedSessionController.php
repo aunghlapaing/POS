@@ -29,18 +29,18 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // return redirect()->intended(route('adminHome', absolute: false));
 
         //default authorization without middleware
-        // if ($request->user()->role == 'admin')
-        // {
-        //     return view ('customize.admin');
-        // }
+        if ($request->user()->role == 'admin' || $request->user()->role == "superadmin")
+        {
+            return to_route('adminHome');
+        }
 
-        // if ($request->user()->role == 'user')
-        // {
-        //     return view ('customize.user');
-        // }        
+        if ($request->user()->role == 'user')
+        {
+            return to_route ('testAuth');
+        }        
         
     }
 

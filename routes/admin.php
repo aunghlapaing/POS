@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CategoryEditController;
+use App\Http\Controllers\Admin\CategoryListController;
 
 
 
@@ -19,5 +20,13 @@ use App\Http\Controllers\Admin\CategoryController;
 
 Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
     Route::get('home',[AdminController::class, 'adminHome'])->name ('adminHome');
-    Route::get('category', [CategoryController::class, 'category'])->name('adminCategory');
+
+    Route::group(['prefix'=>'category'], function()
+    {
+        Route::get('list', [CategoryListController::class, 'categoryList'])->name('categoryList');
+        Route::post('create', [CategoryListController::class, 'categoryCreate'])->name('categoryCreate');
+        Route::get('edit', [CategoryEditController::class, 'categoryEdit'])->name('categoryEdit');
+    });
+    
+    
 });

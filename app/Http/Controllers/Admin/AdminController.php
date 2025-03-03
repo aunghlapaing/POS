@@ -9,6 +9,6 @@ class AdminController extends Controller
 {
     //redirect to the admin home page
     public function adminHome (){
-        return view('admin.dashboard.list');
+        return view('admin/dashboard/home');
     }
 }

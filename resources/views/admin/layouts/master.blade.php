@@ -19,6 +19,9 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    {{-- bootstrap link --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
@@ -47,7 +50,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
+                <a class="nav-link" href="{{ route('adminHome') }}"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
             </li>
 
             <li class="nav-item">
@@ -55,11 +58,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-sitemap"></i></i><span>Add Category </span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-layer-group"></i><span>Product Details
+                <a class="nav-link" href="{{ route('productCreate') }}"><i class="fa-solid fa-layer-group"></i><span>Product Details
                     </span></a>
             </li>
 
@@ -181,6 +180,9 @@
     {{-- sweet alert npm --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
+
+    {{-- bootstrap js link --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     @yield('js-script-create-cat')
 

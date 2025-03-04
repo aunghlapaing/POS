@@ -6,7 +6,7 @@
 
 
         <!-- DataTales Example -->
-        <div class="card shadow mb-4 col-5">
+        <div class="card shadow mb-4 col-md-5">
             <div class="card-header py-3">
                 <div class="">
                     <div class="">

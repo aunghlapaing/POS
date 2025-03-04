@@ -25,7 +25,9 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
     {
         Route::get('list', [CategoryListController::class, 'categoryList'])->name('categoryList');
         Route::post('create', [CategoryListController::class, 'categoryCreate'])->name('categoryCreate');
-        Route::get('edit', [CategoryEditController::class, 'categoryEdit'])->name('categoryEdit');
+        Route::get('edit/{id}', [CategoryListController::class, 'categoryEdit'])->name('categoryEdit');
+        Route::post('update/{id}', [CategoryListController::class, 'categoryUpdate'])->name('categoryUpdate');
+        Route::get('delete/{id}', [CategoryListController::class, 'categoryDelete'])->name('categoryDelete');
     });
     
     

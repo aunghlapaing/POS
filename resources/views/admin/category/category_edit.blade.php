@@ -15,15 +15,22 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Category Name</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Drinks...">
-                </div>
-
-                <a href="{{ route('categoryList') }}">
-                    <input type="submit" value="Cancel" class="btn btn-outline-danger" id="">
-                </a>
-                <input type="submit" value="Update" class="btn btn-outline-primary">
+                <form action="{{ route('categoryUpdate', $category->id) }}" method="post">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Category Name</label>
+                        <input type="text" name="categoryName" class="form-control @error('categoryName') is-invalid @enderror"
+                            id="exampleFormControlInput1" value="{{ old('categoryName', $category->name) }}" placeholder="Drinks...">
+                        @error('categoryName')
+                            <small class="invalid-feedback">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <a href="{{ route('categoryList') }}" class="btn btn-outline-danger" id="">
+                        Cancel
+                    </a>
+                    <input type="submit" value="Update" class="btn btn-outline-primary"></input>
+                
+                </form>
             </div>
         </div>
 

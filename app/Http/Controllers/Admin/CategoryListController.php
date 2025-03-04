@@ -26,17 +26,46 @@ class CategoryListController extends Controller
 
         // Alert::success('Success title', 'Create Category Successful!');
 
+
         return back();
  
+    }
+
+    //delete category
+    public function categoryDelete($id){
+        Category::where('id',$id)->delete();
+        return back();
+    }
+
+    //edit category
+    public function categoryEdit($id)
+    {
+        $category = Category::where('id', $id)->first();
+        return view ('admin/category/category_edit', compact('category'));
+    }
+
+    //update category
+    public function categoryUpdate($id, Request $request)
+    {
+        $request['id'] = $id;
+        $this->validation($request);
+
+        Category::where('id', $id)->update([
+            'name' => $request->categoryName
+        ]);
+
+        return to_route('categoryList');
+
     }
 
     //check validation
     public function validation($request)
     {
         $request->validate([
-            'categoryName' => 'required|min:2|max:20|unique:categories,name'
+            'categoryName' => 'required|min:2|max:20|unique:categories,name,' .$request->id
         ], [
-            'categoryName.required' => 'category name is required.'
+            'categoryName.required' => 'category name is required.',
+            'categoryName.unique' => 'category name is already taken.'
         ]);
 
     }

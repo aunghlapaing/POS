@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryEditController extends Controller
 {
-    public function categoryEdit()
+    public function categoryEdit($id)
     {
-        return view ('admin/category/category_edit');
+        $category = Category::where('id', $id)->first();
+        return view ('admin/category/category_edit', compact('category'));
     }
 }

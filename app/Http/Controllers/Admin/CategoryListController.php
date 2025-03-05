@@ -19,16 +19,22 @@ class CategoryListController extends Controller
     public function categoryCreate(Request $request)
     {
         $this->validation($request);
+        $data = $this->getData($request);
 
-        Category::create([
-            'name' => $request->categoryName
-        ]);
+        Category::create($data);
 
-        // Alert::success('Success title', 'Create Category Successful!');
-
+        // Alert::success('Success title', 'Create Category Successful!')
 
         return back();
  
+    }
+
+    //get method form data
+    public function getData($data)
+    {
+        return [
+            'name' => $data->categoryName
+        ];
     }
 
     //delete category

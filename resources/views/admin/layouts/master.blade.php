@@ -58,7 +58,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('productCreate') }}"><i class="fa-solid fa-layer-group"></i><span>Product Details
+                <a class="nav-link" href="{{ route('productCreatePage') }}"><i class="fa-solid fa-layer-group"></i><span>Product Details
                     </span></a>
             </li>
 
@@ -180,11 +180,28 @@
     {{-- sweet alert npm --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
+    
+    {{-- sweet alert cdn link --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- bootstrap js link --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     @yield('js-script-create-cat')
+    <script>
+        function loadFile(event)
+        {
+            var reader = new FileReader();
+
+            reader.onload = function(){
+                var file = document.getElementById("output");
+                
+                file.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0])
+        }
+
+    </script>
 
 </body>
 

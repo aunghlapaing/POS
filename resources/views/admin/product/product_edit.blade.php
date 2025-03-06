@@ -8,18 +8,19 @@
                     <div class="card-header py-3">
                         <div class="">
                             <div class="">
-                                <h6 class="m-0 font-weight-bold text-primary">Create Category Page</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Edit Category Page</h6>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('productCreate') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('productUpdate', $product->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
-
+                            <input type="hidden" name="oldImage" value="{{ $product->image }}" id="">
+                            {{-- {{ dd($product->image) }} --}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="text-center">
-                                        <img class="img-profile mb-1 w-25" id="output" alt="">
+                                        <img class="img-profile mb-1 w-25" src="{{ asset('productImage/'. $product->image) }}" id="output" alt="">
                                     </div>
                                     <input class="form-control mt-2 @error('image') is-invalid @enderror" name="image" accept="image/*" type="file" id="formFile" onchange="loadFile(event)">
                                     @error('image')
@@ -32,7 +33,7 @@
                                 <div class="col-6 mt-3">
                                     <label for="exampleFormControlInput1" class="form-label">Product Name</label>
                                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                        placeholder="Enter product name..." value="{{ old('name') }}">
+                                        placeholder="Enter product name..." value="{{ $product->name, old('name') }}">
                                     @error('name')
                                         <small class="invalid-feedback">{{ $message }}</small>
                                     @enderror
@@ -42,7 +43,7 @@
                                     <select name="categoryId" class="form-select @error('categoryId') is-invalid @enderror" id="">
                                         <option selected value="">Choose Category</option>
                                         @foreach ($category as $item)
-                                            <option value="{{ $item->id }}" @if(old('categoryId') == $item->id) @endif>{{ $item->name }}</option>
+                                            <option value="{{ $item->id }}" @if($product->category_id == $item->id) @endif>{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('categoryId')
@@ -55,14 +56,14 @@
                                 <div class="col-6 mt-3">
                                     <label for="exampleFormControlInput1" class="form-label">Product Price</label>
                                     <input type="text" name="price" class="form-control @error('price') is-invalid @enderror"
-                                        placeholder="Enter product price..." value="{{ old('price') }}">
+                                        placeholder="Enter product price..." value="{{ $product->price, old('price') }}">
                                     @error('price')
                                         <small class="invalid-feedback">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-6 mt-3">
                                     <label for="productCreate" class="form-label">Stock</label>
-                                    <input type="number" class="form-control @error('stock') @enderror" name="stock" value="{{ old('stock') }}" placeholder="Enter stock number...">
+                                    <input type="number" class="form-control @error('stock') @enderror" name="stock" value="{{ $product->stokc, old('stock') }}" placeholder="Enter stock number...">
                                     @error('stock')
                                         <small class="invalid-feedback">{{ $message }}</small>
                                     @enderror
@@ -73,7 +74,7 @@
                                 <div class="col-md-12 mt-3 ">
                                     <label for="productCreate" class="form-label">Enter Description</label>
                                     <div class="form-floating">
-                                        <textarea class="form-control @error('description') is-invalid @enderror" name="description" style="height: 200px;" placeholder="Leave a comment here" id="floatingTextarea">{{ old('description') }}</textarea>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" name="description" style="height: 200px;" placeholder="Leave a comment here" id="floatingTextarea">{{ $product->description, old('description') }}</textarea>
                                         <label for="floatingTextarea">Comments...</label>
                                         @error('description')
                                             <small class="invalid-feedback">{{ $message }}</small>
@@ -84,7 +85,7 @@
 
                             <div class="row">
                                 <div class="col-md-6 mt-3">
-                                    <a href="{{ route('productList') }}" class="btn btn-outline-primary">
+                                    <a href="{{ route("productList") }}" class="btn btn-outline-primary">
                                         Product List
                                     </a>
                                     <input type="submit" name="btn_submit" class="btn btn-success" value="Create Product" id="">

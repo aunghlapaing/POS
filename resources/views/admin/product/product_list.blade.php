@@ -6,14 +6,14 @@
             <div class="">
                 <button class=" btn btn-secondary rounded shadow-sm"> <i class="fa-solid fa-database"></i>
                     Product Count ( {{ count($products) }} ) </button>
-                <a href="{{ route('productList', 'default')}}" class=" btn btn-outline-primary  rounded shadow-sm">All Products</a>
+                <a href="{{ route('productList', 'default') }}" class=" btn btn-outline-primary  rounded shadow-sm">All Products</a>
                 <a href="{{ route('productList', 'lowAmt')  }}" class=" btn btn-outline-danger  rounded shadow-sm">Low Amount Product List</a>
             </div>
             <div class="">
-                <form action="" method="get">
+                <form action="{{ route('productList') }}" method="get">
 
                     <div class="input-group">
-                        <input type="text" name="searchKey" value="" class=" form-control"
+                        <input type="text" name="searchKey" value="{{ request('searchKey') }}" class=" form-control"
                             placeholder="Enter Search Key...">
                         <button type="submit" class=" btn bg-dark text-white"> <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -64,12 +64,12 @@
                                         <a href="" class="btn btn-sm btn-outline-primary">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
-                                        <a href="" class="btn btn-sm btn-outline-secondary">
+                                        <a href="{{ route('productEditPage', $item->id) }}" class="btn btn-sm btn-outline-secondary">
                                             <i class="fa-solid fa-pen-to-square"></i> 
                                         </a>
-                                        <a href="" class="btn btn-sm btn-outline-danger">
+                                        <button type="button" onclick="deleteProduct({{ $item->id }})" class="btn btn-sm btn-outline-danger">
                                             <i class="fa-solid fa-trash"></i>
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -80,13 +80,38 @@
                                 </td>
                             </tr>
                         @endif
-                        
                     </tbody>
                 </table>
-
-
-
+                <span class="d-flex justify-content-md-start">{{ $products->links() }}</span>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-script')
+    <script>
+        function deleteProduct($id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    setInterval(() => {
+                        location.href = '/admin/product/delete/' + $id
+                    }, 1000);
+                }
+            });
+
+        }
+    </script>
 @endsection

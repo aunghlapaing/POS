@@ -21,7 +21,10 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
     Route::group(['prefix'=>'product'], function(){
         Route::get('createPage', [ProductController::class, 'productCreatePage'])->name('productCreatePage');
         Route::post('create', [ProductController::class, 'productCreate'])->name('productCreate');
-        Route::get('list/{action?}', [ProductController::class, 'productList'])->name('productList');
+        Route::get('list/{action?}', [ProductController::class, 'productList'])->name('productList'); 
+        Route::get('delete/{id}', [ProductController::class, 'productDelete'])->name('productDelete'); 
+        Route::get('edit/{id}', [ProductController::class, 'productEditPage'])->name('productEditPage'); 
+        Route::post('update/{id}', [ProductController::class, 'productUpdate'])->name('productUpdate');
     });
     
 });

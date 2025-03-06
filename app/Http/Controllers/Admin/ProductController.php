@@ -57,26 +57,76 @@ class ProductController extends Controller
     public function productList($action = 'default')
     {
         // dd($action);
-        $products = Product::select('products.id','products.name','products.image','products.price','products.stock','products.category_id', 'categories.name as category_name' )
+        $products = Product::select(
+                                    'products.id',
+                                    'products.name',
+                                    'products.image',
+                                    'products.price',
+                                    'products.stock',
+                                    'products.category_id', 
+                                    'categories.name as category_name' )
                                 ->leftJoin('categories', 'products.category_id', 'categories.id')
                                 ->when($action == 'lowAmt', function($query){
                                     $query->where('products.stock' , '<=', 3);
                                 })
+                                ->when(request('searchKey'), function ($query){
+                                    $query->whereAny(['products.name','categories.name' ], 'like', '%'. request('searchKey') .'%');
+                                })
                                 ->orderBy('products.created_at', 'desc')
-                                ->get();
+                                ->paginate(5);
 
         return view('admin/product/product_list', compact('products'));
     }
 
+    //product delete
+    public function productDelete ($id)
+    {
+        // dd ($id);
+        Product::where('id', $id)->delete();
+        return back();
+    }
+
+    //product edit page 
+    public function productEditPage($id)
+    {
+        $category = Category::get();
+        $product = Product::where('id', $id)->first();
+
+        return view('admin/product/product_edit',compact('category', 'product'));
+    }
+
+    //update product
+    public function productUpdate($id, Request $request)
+    {
+
+        $this->checkValidation ($request, 'update');
+        $data = $this->getData($request);
+
+        if($request->hasFile('image'))
+        {
+            $oldImage = $request->oldImage;
+            if(file_exists(public_path('productImage/' . $oldImage)))
+            {
+                unlink(public_path('productImage/' . $oldImage));
+            }
+
+            $newFile = uniqid() . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path(). "/productImage/", $newFile);
+            $data['image'] = $newFile;
+        }
+        Product::where("id", $id)->update($data);
+        return to_route('productList');
+    }
+
     //check validation
-    public function checkValidation($request)
+    public function checkValidation($request, $action)
     {
         $rules = [
             'image'=> 'required|file',
             'name'=> 'required|unique:products,name|min:3|max:50',
             'categoryId'=> 'required',
             'price'=> 'required|numeric|min:2',
-            'stock'=> 'required|numeric|max:3',
+            'stock'=> 'required|numeric|max:999',
             'description'=> 'required|min:5|max:1000'
         ];
 

@@ -58,12 +58,12 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('productCreatePage') }}"><i class="fa-solid fa-layer-group"></i><span>Product Details
+                <a class="nav-link" href="{{ route('productCreatePage') }}"><i class="fa-solid fa-layer-group"></i><span>Add Product
                     </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-plus"></i></i><span>Add Item </span></a>
+                <a class="nav-link" href="{{ route('productList') }}"><i class="fa-solid fa-plus"></i></i><span>Product List </span></a>
             </li>
 
             <li class="nav-item">
@@ -180,9 +180,6 @@
     {{-- sweet alert npm --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
-    
-    {{-- sweet alert cdn link --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     {{-- bootstrap js link --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

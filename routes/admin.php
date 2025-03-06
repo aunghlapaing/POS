@@ -21,6 +21,7 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
     Route::group(['prefix'=>'product'], function(){
         Route::get('createPage', [ProductController::class, 'productCreatePage'])->name('productCreatePage');
         Route::post('create', [ProductController::class, 'productCreate'])->name('productCreate');
+        Route::get('list/{action?}', [ProductController::class, 'productList'])->name('productList');
     });
     
 });

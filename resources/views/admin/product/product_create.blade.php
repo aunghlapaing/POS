@@ -13,13 +13,13 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('productCreate') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('productCreate') }}" method="post" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="text-center">
-                                        <img class="img-profile mb-1 w-25" id="output" src="" alt="">
+                                        <img class="img-profile mb-1 w-25" id="output" alt="">
                                     </div>
                                     <input class="form-control mt-2 @error('image') is-invalid @enderror" name="image" accept="image/*" type="file" id="formFile" onchange="loadFile(event)">
                                     @error('image')
@@ -73,7 +73,7 @@
                                 <div class="col-md-12 mt-3 ">
                                     <label for="productCreate" class="form-label">Enter Description</label>
                                     <div class="form-floating">
-                                        <textarea class="form-control @error('description') is-invalid @enderror" name="description" cols="30" rows="10" placeholder="Leave a comment here" id="floatingTextarea">{{ old('description') }}</textarea>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" name="description" style="height: 200px;" placeholder="Leave a comment here" id="floatingTextarea">{{ old('description') }}</textarea>
                                         <label for="floatingTextarea">Comments...</label>
                                         @error('description')
                                             <small class="invalid-feedback">{{ $message }}</small>

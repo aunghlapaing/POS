@@ -42,7 +42,7 @@
                                     <select name="categoryId" class="form-select @error('categoryId') is-invalid @enderror" id="">
                                         <option selected value="">Choose Category</option>
                                         @foreach ($category as $item)
-                                            <option value="{{ $item->id }}" @if(old('categoryId') == $item->id) @endif>{{ $item->name }}</option>
+                                            <option value="{{ $item->id }}" @if(old('categoryId') == $item->id) selected @endif>{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('categoryId')
@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col-6 mt-3">
                                     <label for="productCreate" class="form-label">Stock</label>
-                                    <input type="number" class="form-control @error('stock') @enderror" name="stock" value="{{ old('stock') }}" placeholder="Enter stock number...">
+                                    <input type="number" class="form-control @error('stock') is-invalid @enderror" name="stock" value="{{ old('stock') }}" placeholder="Enter stock number...">
                                     @error('stock')
                                         <small class="invalid-feedback">{{ $message }}</small>
                                     @enderror

@@ -116,19 +116,22 @@ class ProductController extends Controller
         }
         Product::where("id", $id)->update($data);
         return to_route('productList');
+
+        // return back();
     }
 
     //check validation
     public function checkValidation($request, $action)
     {
         $rules = [
-            'image'=> 'required|file',
-            'name'=> 'required|unique:products,name|min:3|max:50',
+            'name'=> 'required|min:3|max:50|unique:products,name,' .$request->id ,
             'categoryId'=> 'required',
             'price'=> 'required|numeric|min:2',
             'stock'=> 'required|numeric|max:999',
             'description'=> 'required|min:5|max:1000'
         ];
+
+        $rules['image'] = $action == 'create' ? 'required|file|mimes:png,jpg,jpeg,webp,svg,gif' : 'file|mimes:png,jpg,jpeg,webp,svg,gif';
 
         $message = [
             'image.required' =>'Image file is required',

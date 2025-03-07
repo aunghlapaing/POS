@@ -49,6 +49,13 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 mt-3">
+                    <a href="{{ route("productList") }}" class="btn btn-outline-primary">
+                        Product List
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

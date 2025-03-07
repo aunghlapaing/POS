@@ -29,6 +29,7 @@
                         Cancel
                     </a>
                     <input type="submit" value="Update" class="btn btn-outline-primary"></input>
+                    
                 
                 </form>
             </div>
@@ -37,3 +38,19 @@
     </div>
     <!-- /.container-fluid -->
 @endsection
+{{-- @section('js-script')
+    <script>
+            function alertMessage(event){
+                event.preventDefault();
+
+                Swal.fire({
+                title: "Good job!",
+                text: "You clicked the button!",
+                icon: "success"
+            });
+            setTimeout(() => {
+                location.href = '/admin/category/list';
+            }, 1000);
+            }
+    </script>
+@endsection --}}

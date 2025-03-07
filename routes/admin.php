@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoryEditController;
 use App\Http\Controllers\Admin\CategoryListController;
 
@@ -26,6 +27,11 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
         Route::get('edit/{id}', [ProductController::class, 'productEditPage'])->name('productEditPage'); 
         Route::post('update/{id}', [ProductController::class, 'productUpdate'])->name('productUpdate');
         Route::get('detail/{id}', [ProductController::class, 'productDetail'])->name('productDetail');
+    });
+
+    Route::group(['prefix'=>'profile'], function(){
+        Route::get('changePasswordPage', [ProfileController::class, 'changePasswordPage'])->name('changePasswordPage');
+        Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
     });
     
 });

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Console\View\Components\Alert;
 
 class CategoryListController extends Controller
 {
@@ -23,7 +22,7 @@ class CategoryListController extends Controller
 
         Category::create($data);
 
-        // Alert::success('Success title', 'Create Category Successful!')
+        // Alert::success('Success title', 'Create Category Successful!');
 
         return back();
  

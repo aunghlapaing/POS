@@ -14,6 +14,13 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if (Session::has('success'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>{{ Session::get('success') }}</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
                     <form action="{{ route('categoryCreate') }}" method="post">
                         @csrf
                         <div class="mb-3">
@@ -27,7 +34,7 @@
                             @enderror
                         </div>
 
-                        <input type="submit" onclick="onCreateCategory()" value="Create" class="btn btn-primary">
+                        <input type="submit" value="Create" class="btn btn-primary">
                     </form>
 
                 </div>
@@ -88,6 +95,7 @@
 
 
 @section('js-script')
+
     <script>
         function deleteCategory($id) {
             Swal.fire({
@@ -113,4 +121,6 @@
 
         }
     </script>
+
+
 @endsection

@@ -43,7 +43,7 @@
                                     <select name="categoryId" class="form-select @error('categoryId') is-invalid @enderror" id="">
                                         <option selected value="">Choose Category</option>
                                         @foreach ($category as $item)
-                                            <option value="{{ $item->id }}" @if(old('categoryId', $product->category_id )== $item->id) selected @endif>{{ $item->name }}</option>
+                                            <option value="{{ $item->id }}" @if(old('categoryId', $product->category_id) == $item->id) selected @endif>{{ $item->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('categoryId')

@@ -65,7 +65,7 @@ class ProductController extends Controller
                                     'products.stock',
                                     'products.category_id', 
                                     'categories.name as category_name' )
-                                ->leftJoin('categories', 'products.category_id', 'categories.id')
+                                ->leftJoin('categories', 'products.category_id','=', 'categories.id')
                                 ->when($action == 'lowAmt', function($query){
                                     $query->where('products.stock' , '<=', 3);
                                 })
@@ -114,10 +114,30 @@ class ProductController extends Controller
             $request->file('image')->move(public_path(). "/productImage/", $newFile);
             $data['image'] = $newFile;
         }
+
         Product::where("id", $id)->update($data);
         return to_route('productList');
+    }
 
-        // return back();
+    //product detial
+    public function productDetail($id)
+    {
+        $product = Product::select(
+                                    'products.id',
+                                    'products.name',
+                                    'products.price',
+                                    'products.stock',
+                                    'products.image',
+                                    'products.description',
+                                    'products.category_id',
+                                    'categories.name as category_name')
+                            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+                            ->where('products.id', $id)
+                            ->first();
+
+        // dd($product->toArray());
+
+        return view('admin/product/product_detail', compact('product'));
     }
 
     //check validation

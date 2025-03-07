@@ -87,7 +87,7 @@
 @endsection
 
 
-@section('js-script-create-cat')
+@section('js-script')
     <script>
         function deleteCategory($id) {
             Swal.fire({

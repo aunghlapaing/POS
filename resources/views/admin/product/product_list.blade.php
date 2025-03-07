@@ -61,7 +61,7 @@
                                     </td>
                                     <td>{{ $item->category_name }}</td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-outline-primary">
+                                        <a href="{{ route('productDetail', $item->id) }}" class="btn btn-sm btn-outline-primary">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
                                         <a href="{{ route('productEditPage', $item->id) }}" class="btn btn-sm btn-outline-secondary">

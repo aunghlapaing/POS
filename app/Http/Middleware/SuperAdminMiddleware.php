@@ -16,14 +16,6 @@ class SuperAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
-        //this stage is login stage, so we can use Auth
-        // if (Auth::user()->role == 'superadmin')
-        // {
-        //     return $next($request);
-        // }
-
-        // return back()->with(['authMessage'=>'You are super admin!']);
-
+        return Auth::user()->role == 'superadmin' ? $next($request) : back();
     }
 }

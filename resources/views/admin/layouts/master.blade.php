@@ -66,10 +66,11 @@
                 <a class="nav-link" href="{{ route('productList') }}"><i class="fa-solid fa-plus"></i></i><span>Product List </span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
-                    </span></a>
-            </li>
+            @if(Auth()->user()->role == 'superadmin')
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method </span></a>
+                </li>
+            @endif
 
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
@@ -118,7 +119,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Auth::user()->first_name }} </span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="{{ asset('admin/profile/userProfile.png') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -127,23 +128,25 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Add New Admin Account
-                                </a>
-                                <a class="dropdown-item" href="">
-                                    <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Admin List
-                                </a>
-
-                                <a class="dropdown-item" href="">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    User List
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
+                                @if(Auth()->user()->role == 'superadmin')
+                                    <a class="dropdown-item" href="{{ route('createNewAdminAccountPage') }}">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Add New Admin Account
+                                    </a>
+                                    <a class="dropdown-item" href="">
+                                        <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Admin List
+                                    </a>
+                                    <a class="dropdown-item" href="">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        User List
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Settings
+                                    </a>
+                                @endif
+                                
                                 <a class="dropdown-item" href="{{ route('changePasswordPage') }}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password

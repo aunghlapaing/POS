@@ -41,7 +41,13 @@ class ProfileController extends Controller
         {
             $this->checkValidation($request, 'changePassword');
         } 
-        return back();
+        // return back();
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return to_route('login');
     }
 
     //get data method

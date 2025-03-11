@@ -10,18 +10,18 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    #redirect to the admin home page
+    # redirect to the admin home page
     public function adminHome (){
         return view('admin/dashboard/home');
     }
     
-    #create new admin account page by super admin
+    # create new admin account page by super admin
     public function createNewAdminPage()
     {
         return view('/admin/profile/create_new_admin');
     }
 
-    #create new admin account
+    # create new admin account
     public function createNewAdmin(Request $request)
     {
         $this->checkValidation($request);
@@ -31,7 +31,7 @@ class AdminController extends Controller
         return back();
     }
 
-    #get data for create new admin account
+    # get data for create new admin account
     public function getData($request)
     {
         return [
@@ -42,7 +42,7 @@ class AdminController extends Controller
         ];
     }
 
-    #check validation for create new admin
+    # check validation for create new admin
     public function checkValidation($request)
     {
         $request->validate([
@@ -53,7 +53,7 @@ class AdminController extends Controller
         ],[]);
     }
 
-    #admin list page
+    # admin list page
     public function adminListPage($action = 'default')
     {
         $userData = User::select(

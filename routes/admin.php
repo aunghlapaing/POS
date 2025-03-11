@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoryEditController;
@@ -41,6 +42,11 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
         Route::group(['prefix' => 'payment'], function()
         {
             #Route::get();
+            Route::get('page', [PaymentController::class, 'paymentPage'])->name('paymentPage');
+            Route::post('create', [PaymentController::class, 'paymentCreate'])->name('paymentCreate');
+            Route::get('edit/{id}', [PaymentController::class, 'paymentEditPage'])->name('paymentEditPage');
+            Route::post('update/{id}', [PaymentController::class, 'paymentUpdate'])->name('paymentUpdate');
+            Route::get('delete/{id}', [PaymentController::class, 'paymentDelete'])->name('paymentDelete');
         });
 
         Route::group(['prefix' => 'account'], function()
@@ -48,7 +54,7 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
             Route::get('create/newAdminPage', [AdminController::class, 'createNewAdminPage'])->name('createNewAdminPage');
             Route::post('create/newAdmin', [AdminController::class, 'createNewAdmin'])->name('createNewAdmin');
             Route::get('admin/list/{action?}', [AdminController::class, 'adminListPage'])->name('adminListPage');
-
+            
         });
     });
     

@@ -14,7 +14,7 @@ class CategoryListController extends Controller
         return view ('admin/category/category_list', compact('categories'));
     }
 
-    //create category
+    # create category
     public function categoryCreate(Request $request)
     {
         $this->validation($request);
@@ -22,13 +22,13 @@ class CategoryListController extends Controller
 
         Category::create($data);
 
-        // Alert::success('Success title', 'Create Category Successful!');
+        # Alert::success('Success title', 'Create Category Successful!');
 
         return back();
  
     }
 
-    //get method form data
+    # get method form data
     public function getData($data)
     {
         return [
@@ -36,25 +36,25 @@ class CategoryListController extends Controller
         ];
     }
 
-    //delete category
+    # delete category
     public function categoryDelete($id){
         Category::where('id',$id)->delete();
         return back();
     }
 
-    //edit category
+    # edit category
     public function categoryEdit($id)
     {
         $category = Category::where('id', $id)->first();
         return view ('admin/category/category_edit', compact('category'));
     }
 
-    //update category
+    # update category
     public function categoryUpdate($id, Request $request)
     {
         $request['id'] = $id;
         $this->validation($request);
-
+ 
         Category::where('id', $id)->update([
             'name' => $request->categoryName
         ]);
@@ -63,7 +63,7 @@ class CategoryListController extends Controller
 
     }
 
-    //check validation
+    # check validation
     public function validation($request)
     {
         $request->validate([

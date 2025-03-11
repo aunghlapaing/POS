@@ -51,7 +51,6 @@
                 </div>
 
                 <div class="card-body">
-
                     <div class="table-responsive">
                         <table class="table" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -97,7 +96,8 @@
 @section('js-script')
 
     <script>
-        function deleteCategory($id) {
+        function deleteCategory($id) 
+        {
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",

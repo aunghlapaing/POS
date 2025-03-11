@@ -10,20 +10,20 @@ use Illuminate\Console\View\Components\Alert;
 
 class ProductController extends Controller
 {
-    //product create route
+    # product create route
     public function productCreatePage()
     {
-        //fetch data from category
+        #fetch data from category
         $category = Category::select('id', 'name')->get();
         
         return view ('admin/product/product_create', compact('category'));
     }
 
-    //product create function
+    # product create function
     public function productCreate(Request $request)
     {
         $this->checkValidation($request, "create");
-        // dd($request->toArray());
+        # dd($request->toArray());
         $data = $this->getData($request);
 
         if($request->hasFile("image"))
@@ -35,13 +35,13 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        // //sweet alert message
-        // Alert::success('Success','Prodct create Successful');
+        # sweet alert message
+        # Alert::success('Success','Prodct create Successful');
 
         return to_route('productCreatePage');
     }
 
-    //get method form data
+    # get method form data
     public function getData($request)
     {
         return [
@@ -53,10 +53,10 @@ class ProductController extends Controller
         ];
     }
 
-    //product list page
+    # product list page
     public function productList($action = 'default')
     {
-        // dd($action);
+        # dd($action);
         $products = Product::select(
                                     'products.id',
                                     'products.name',
@@ -78,15 +78,15 @@ class ProductController extends Controller
         return view('admin/product/product_list', compact('products'));
     }
 
-    //product delete
+    # product delete
     public function productDelete ($id)
     {
-        // dd ($id);
+        # dd ($id);
         Product::where('id', $id)->delete();
         return back();
     }
 
-    //product edit page 
+    #product edit page 
     public function productEditPage($id)
     {
         $category = Category::get();
@@ -95,7 +95,7 @@ class ProductController extends Controller
         return view('admin/product/product_edit',compact('category', 'product'));
     }
 
-    //update product
+    # update product
     public function productUpdate($id, Request $request)
     {
 
@@ -119,7 +119,7 @@ class ProductController extends Controller
         return to_route('productList');
     }
 
-    //product detial
+    # product detial
     public function productDetail($id)
     {
         $product = Product::select(
@@ -135,12 +135,12 @@ class ProductController extends Controller
                             ->where('products.id', $id)
                             ->first();
 
-        // dd($product->toArray());
+        # dd($product->toArray());
 
         return view('admin/product/product_detail', compact('product'));
     }
 
-    //check validation
+    # check validation
     public function checkValidation($request, $action)
     {
         $rules = [

@@ -47,6 +47,8 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
         {
             Route::get('create/newAdminPage', [AdminController::class, 'createNewAdminPage'])->name('createNewAdminPage');
             Route::post('create/newAdmin', [AdminController::class, 'createNewAdmin'])->name('createNewAdmin');
+            Route::get('admin/list/{action?}', [AdminController::class, 'adminListPage'])->name('adminListPage');
+
         });
     });
     

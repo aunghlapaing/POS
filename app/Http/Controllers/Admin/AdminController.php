@@ -53,5 +53,33 @@ class AdminController extends Controller
         ],[]);
     }
 
+    #admin list page
+    public function adminListPage($action = 'default')
+    {
+        $userData = User::select(
+                                'id',
+                                'first_name',
+                                'email',
+                                'phone',
+                                'address',
+                                'role',
+                                'created_at',
+                                'provider'
+                            )
+                        ->when($action == 'superAdmin', function($query){
+                            $query->where('role', '=' , 'superadmin');
+                        })
+                        ->when($action == 'admin', function($query){
+                            $query->where('role', '=' , 'admin');
+                        })
+                        ->when($action == 'user', function($query){
+                            $query->where('role', '=', 'user');
+                        })
+                        ->when(request('searchKey'), function($query){
+                            $query->whereAny(['first_name', 'address', 'provider'], 'like', '%' .request('searchKey'). '%');
+                        })
+                        ->paginate(4);
+        return view('admin/profile/admin_list', compact('userData'));
+    }
     
 }

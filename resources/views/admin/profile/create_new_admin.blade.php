@@ -7,7 +7,7 @@
         <div class="col-6 offset-3 card p-3 shadow-sm rounded">
 
             <div class=" d-flex justify-content-end">
-                <a href="" class=" btn bg-danger my-2 w-25 rounded shadow-sm text-white"> <i
+                <a href="{{ route('adminListPage') }}" class=" btn bg-danger my-2 w-25 rounded shadow-sm text-white"> <i
                         class="fa-solid fa-users"></i> Admin List</a>
             </div>
 

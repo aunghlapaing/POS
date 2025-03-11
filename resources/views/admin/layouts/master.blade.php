@@ -133,7 +133,7 @@
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Add New Admin Account
                                     </a>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{ route('adminListPage') }}">
                                         <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Admin List
                                     </a>

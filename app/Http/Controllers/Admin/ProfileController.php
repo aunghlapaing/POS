@@ -39,7 +39,7 @@ class ProfileController extends Controller
         }
         else 
         {
-            $this->checkValidation($request, 'changePassword');
+            $this->checkValidation($request);
         }
 
         Auth::logout();
@@ -81,7 +81,7 @@ class ProfileController extends Controller
     public function editProfile($id, Request $request)
     {
         #dd($request->toArray());
-        $this->checkValidationProfile($request, 'editProfile');
+        $this->checkValidationProfile($request);
         $data = $this->getUserData($request);
         #dd($data);
 
@@ -120,10 +120,10 @@ class ProfileController extends Controller
     {
         $request->validate([
             'first_name' => 'required|min:3|max:100',
-            'email' => 'required',
+            'email' => 'required|unique:users,email,' . Auth::user()->id,
             'phone' => 'required',
-            'address' => 'required',
-            'image' => 'required'
+            'address' => 'max:100',
+            'image' => 'file|mimes:jpg,png,webp,gift,svg,jpeg'
         ], []);
     }
 }

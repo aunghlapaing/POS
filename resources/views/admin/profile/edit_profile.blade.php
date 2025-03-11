@@ -9,7 +9,7 @@
             <div class="card-header py-3">
                 <div class="">
                     <div class="">
-                        <h6 class="m-0 font-weight-bold text-primary">Admin Profile ( <span class="text-danger"> Role</span> )
+                        <h6 class="m-0 font-weight-bold text-primary">{{ $userData->first_name }}'s Profile ( <span class="text-danger"> {{ $userData->role }} </span> )
                         </h6>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-3">
                             <img class="img-profile img-thumbnail" id="output" src="{{ asset('admin/profile/'. $userData->profile ) }}">
-                            <input type="file" name="image" id="" class="form-control mt-1 @error('image') is-invalid @enderror" onchange="loadFile(event)">
+                            <input type="file" accept="image/*" name="image" id="" class="form-control mt-1 @error('image') is-invalid @enderror" onchange="loadFile(event)">
                             @error('image')
                                 <small class="invalid-feedback">{{ $message }}</small>
                             @enderror
@@ -33,7 +33,7 @@
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">
                                             Name</label>
-                                        <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror " placeholder="Name..."value="{{ $userData->first_name, old('first_name') }}">
+                                        <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror " placeholder="Name..."value="{{ $userData->first_name == "" ? $userData->last_name : $userData->first_name, old('first_name') }}">
                                         @error('first_name')
                                             <small class="invalid-feedback">{{ $message }}</small>
                                         @enderror

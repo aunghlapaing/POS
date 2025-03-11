@@ -32,6 +32,8 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
     Route::group(['prefix'=>'profile'], function(){
         Route::get('changePasswordPage', [ProfileController::class, 'changePasswordPage'])->name('changePasswordPage');
         Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
+        Route::get('edit/profilePage', [ProfileController::class, 'editProfilePage'])->name('editProfilePage');
+        Route::post('edit/profile/{id}', [ProfileController::class, 'editProfile'])->name('editProfile');
     });
 
     Route::group(['middleware' => 'superAdmin'], function()
@@ -43,8 +45,6 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
 
         Route::group(['prefix' => 'account'], function()
         {
-            Route::get('edit/profilePage', [ProfileController::class, 'editProfilePage'])->name('editProfilePage');
-            Route::post('edit/profile/{id}', [ProfileController::class, 'editProfile'])->name('editProfile');
             Route::get('create/newAdminPage', [AdminController::class, 'createNewAdminPage'])->name('createNewAdminPage');
             Route::post('create/newAdmin', [AdminController::class, 'createNewAdmin'])->name('createNewAdmin');
         });

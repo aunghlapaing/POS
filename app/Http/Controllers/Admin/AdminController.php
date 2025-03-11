@@ -6,61 +6,52 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    //redirect to the admin home page
+    #redirect to the admin home page
     public function adminHome (){
         return view('admin/dashboard/home');
     }
     
-    //create new admin account page by super admin
-    public function createNewAdminAccountPage()
+    #create new admin account page by super admin
+    public function createNewAdminPage()
     {
         return view('/admin/profile/create_new_admin');
-        // dd ("this is cfreate new admin account page");
     }
 
-    //create new admin account function
-    public function createNewAdminAccount(Request $request)
+    #create new admin account
+    public function createNewAdmin(Request $request)
     {
         $this->checkValidation($request);
-        // dd ($request->toArray());
+        $data = $this->getData ($request);
 
-        $data = $this->getData($request);
-        if($request->hasFile("image"))
-            {
-                $fileName = uniqid() . $request->file("image")->getClientOriginalName();
-                $request->file("image")->move(public_path() . "/admin/profile/" , $fileName );
-                $data['profile'] = $fileName;
-            }
         User::create($data);
         return back();
     }
 
-    //get data method
-    public function getData ($request)
+    #get data for create new admin account
+    public function getData($request)
     {
         return [
             'first_name' => $request->first_name,
             'email' => $request->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'password' => 'admin123',
+            'password' => $request->password,
             'role' => 'admin'
-
         ];
     }
 
-    //check validation
+    #check validation for create new admin
     public function checkValidation($request)
     {
         $request->validate([
-            'first_name' => 'required|min:3|max:10',
+            'first_name' => 'required|min:3|max:100',
             'email' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'image' => 'required'
-        ], []);
+            'password'=> 'required|min:6|max:12',
+            'confirmPassword' => 'required|min:6|max:12|same:password'
+        ],[]);
     }
+
+    
 }

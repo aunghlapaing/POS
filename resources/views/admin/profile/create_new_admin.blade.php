@@ -1,81 +1,64 @@
 @extends('admin/layouts/master')
 
 @section('content')
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
 
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4 col">
-            <div class="card-header py-3">
-                <div class="">
-                    <div class="">
-                        <h6 class="m-0 font-weight-bold text-primary">Admin Profile ( <span class="text-danger"> Role</span> )
-                        </h6>
-                    </div>
-                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3 card p-3 shadow-sm rounded">
+
+            <div class=" d-flex justify-content-end">
+                <a href="" class=" btn bg-danger my-2 w-25 rounded shadow-sm text-white"> <i
+                        class="fa-solid fa-users"></i> Admin List</a>
             </div>
-            <form action="{{ route('createNewAdminAccount') }}" method="post" enctype="multipart/form-data">
+
+            <div class="card-title bg-dark text-white p-3 h5">New Admin Account</div>
+
+            <form action="{{ route('createNewAdmin') }}" method="post">
 
                 @csrf
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-3">
-                            <img class="img-profile img-thumbnail" id="output" src="">
-                            <input type="file" name="image" id="" class="form-control mt-1 @error('image') is-invalid @enderror" onchange="loadFile(event)">
-                            @error('image')
-                                <small class="invalid-feedback">{{ $message }}</small>
-                            @enderror
-                        </div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">
-                                            Name</label>
-                                        <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror " placeholder="Name..."value="{{ old('first_name') }}">
-                                        @error('first_name')
-                                            <small class="invalid-feedback">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">
-                                            Email</label>
-                                        <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Email...">
-                                        @error('email')
-                                            <small class="invalid-feedback">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">
-                                            Phone</label>
-                                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone') }}" placeholder="09xxxxxx">
-                                        @error('phone')
-                                            <small class="invalid-feedback">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">
-                                            Address</label>
-                                        <input type="text" name="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" placeholder="Address">
-                                        @error('address')
-                                            <small class="invalid-feedback">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="submit" value="Update" class="btn btn-primary mt-3">
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" name="first_name" value="{{ old('first_name') }}" class="form-control @error('first_name') is-invalid @enderror" placeholder="Enter Name...">
+                        @error('first_name')
+                            <small class="invalid-feedback">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="text" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" placeholder="Enter Email...">
+                        @error('email')
+                            <small class="invalid-feedback">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="text" name="password" value="" class="form-control @error('password') is-invalid @enderror " placeholder="Enter Password...">
+                        @error('password')
+                            <small class="invalid-feedback">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="text" name="confirmPassword" value="" class="form-control @error('confirmPassword') is-invalid @enderror " placeholder="Enter Confirm Passoword...">
+                        @error('confirmPassword')
+                            <small class="invalid-feedback">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="submit" value="Create Account" class=" btn btn-primary w-100 rounded shadow-sm">
                     </div>
                 </div>
             </form>
+
+
         </div>
+
     </div>
+</div>
+
 @endsection

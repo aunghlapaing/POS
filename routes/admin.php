@@ -43,8 +43,10 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
 
         Route::group(['prefix' => 'account'], function()
         {
-            Route::get('create/newAdminAccount', [AdminController::class, 'createNewAdminAccountPage'])->name('createNewAdminAccountPage');
-            Route::post('create/newAdminAccount', [AdminController::class, 'createNewAdminAccount'])->name('createNewAdminAccount');
+            Route::get('edit/profilePage', [ProfileController::class, 'editProfilePage'])->name('editProfilePage');
+            Route::post('edit/profile/{id}', [ProfileController::class, 'editProfile'])->name('editProfile');
+            Route::get('create/newAdminPage', [AdminController::class, 'createNewAdminPage'])->name('createNewAdminPage');
+            Route::post('create/newAdmin', [AdminController::class, 'createNewAdmin'])->name('createNewAdmin');
         });
     });
     

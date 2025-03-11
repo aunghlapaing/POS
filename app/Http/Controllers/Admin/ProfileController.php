@@ -87,10 +87,13 @@ class ProfileController extends Controller
 
         if($request->hasFile('image'))
         {
-            $oldProfile = $request->oldProfile;
-            if(file_exists(public_path('admin/profile/' . $oldProfile)))
+            if(Auth::user()->profile != "")
             {
-                unlink(public_path('admin/profile/' . $oldProfile));
+                $oldProfile = $request->oldProfile;
+                if(file_exists(public_path('admin/profile/' . $oldProfile)))
+                {
+                    unlink(public_path('admin/profile/' . $oldProfile));
+                }
             }
 
             $newProfile = uniqid() . $request->file('image')->getClientOriginalName();

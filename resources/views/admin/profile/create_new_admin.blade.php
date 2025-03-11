@@ -7,8 +7,9 @@
         <div class="col-6 offset-3 card p-3 shadow-sm rounded">
 
             <div class=" d-flex justify-content-end">
-                <a href="{{ route('adminListPage') }}" class=" btn bg-danger my-2 w-25 rounded shadow-sm text-white"> <i
-                        class="fa-solid fa-users"></i> Admin List</a>
+                <a href="{{ route('adminListPage') }}" class=" btn bg-danger my-2 w-30 rounded shadow-sm text-white">
+                    <i class="fa-solid fa-users"></i> System Users List
+                </a>
             </div>
 
             <div class="card-title bg-dark text-white p-3 h5">New Admin Account</div>

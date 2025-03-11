@@ -135,11 +135,7 @@
                                     </a>
                                     <a class="dropdown-item" href="{{ route('adminListPage') }}">
                                         <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Admin List
-                                    </a>
-                                    <a class="dropdown-item" href="">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        User List
+                                        System User List
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>

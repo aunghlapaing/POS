@@ -88,7 +88,7 @@
                                     <a href="{{ route("productList") }}" class="btn btn-outline-primary">
                                         Product List
                                     </a>
-                                    <input type="submit" name="btn_submit" class="btn btn-success" value="Create Product" id="">
+                                    <input type="submit" name="btn_submit" class="btn btn-success" value="Update Product" id="">
                                 </div>
                             </div>
 

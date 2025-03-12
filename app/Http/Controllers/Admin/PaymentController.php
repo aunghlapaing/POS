@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PaymentController extends Controller
 {
@@ -22,6 +23,10 @@ class PaymentController extends Controller
         $data = $this->getPaymentData($request);
 
         Payment::create($data);
+
+        # alert message
+        Alert::success('Successful!', 'Payment Created!');
+
         return to_route('paymentPage');
     }
 
@@ -40,6 +45,9 @@ class PaymentController extends Controller
         $data = $this->getPaymentData($request);
         # dd($data);
         Payment::where('id', $id)->update($data);
+
+        # alert message
+        Alert::success('Successful!', 'Payment Updated');
 
         return to_route('paymentPage');
     }

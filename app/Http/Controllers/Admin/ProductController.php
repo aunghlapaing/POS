@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Console\View\Components\Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
@@ -36,7 +36,7 @@ class ProductController extends Controller
         Product::create($data);
 
         # sweet alert message
-        # Alert::success('Success','Prodct create Successful');
+        Alert::success('Successful!','Product created');
 
         return to_route('productCreatePage');
     }
@@ -92,6 +92,7 @@ class ProductController extends Controller
         $category = Category::get();
         $product = Product::where('id', $id)->first();
 
+
         return view('admin/product/product_edit',compact('category', 'product'));
     }
 
@@ -116,6 +117,10 @@ class ProductController extends Controller
         }
 
         Product::where("id", $id)->update($data);
+
+        # alert message
+        Alert::success('Successful!', 'Product Updated!');
+
         return to_route('productList');
     }
 

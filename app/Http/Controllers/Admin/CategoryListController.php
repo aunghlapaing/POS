@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryListController extends Controller
 {
@@ -22,7 +23,7 @@ class CategoryListController extends Controller
 
         Category::create($data);
 
-        # Alert::success('Success title', 'Create Category Successful!');
+        Alert::success('Success title', 'Create Category Successful!');
 
         return back();
  
@@ -58,6 +59,8 @@ class CategoryListController extends Controller
         Category::where('id', $id)->update([
             'name' => $request->categoryName
         ]);
+
+        Alert::success('Successful!', 'Category Updated!');
 
         return to_route('categoryList');
 

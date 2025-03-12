@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -28,6 +29,10 @@ class AdminController extends Controller
         $data = $this->getData ($request);
 
         User::create($data);
+
+        # alert message 
+        Alert::success('Successful!', 'Account Created!');
+
         return back();
     }
 
@@ -37,7 +42,7 @@ class AdminController extends Controller
         return [
             'first_name' => $request->first_name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'role' => 'admin'
         ];
     }
@@ -47,7 +52,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'first_name' => 'required|min:3|max:100',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'password'=> 'required|min:6|max:12',
             'confirmPassword' => 'required|min:6|max:12|same:password'
         ],[]);

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Console\View\Components\Alert;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller
 {
@@ -102,6 +102,10 @@ class ProfileController extends Controller
         }
 
         User::where('id', $id)->update($data);
+
+        # alert message
+        Alert::success('Succesful!', 'Profile Updated!');
+
         return to_route('adminHome');
 
     }

@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-md-12">
                 <table class="table table-hover shadow-sm ">
                     <thead class="bg-primary text-white">
                         <tr>
@@ -43,12 +43,18 @@
                                     <td>{{ $item->id}}</td>
                                     <td>{{ $item->first_name }}</td>
                                     <td>{{ $item->email }}</td>
-                                    <td>{{ $item->address == "" ? 'sample' : $item->address; }}</td>
-                                    <td>{{ $item->phone == "" ? 'sample' : $item->phone; }}</td>
+                                    <td>{!! $item->address == "" ? '<span class="text-danger">__</span>' : $item->address !!}</td>
+                                    <td>{!! $item->phone == "" ? '<span class="text-danger">__</span>' : $item->phone !!}</td>
                                     <td><span class="btn btn-sm bg-danger text-white rounded shadow-sm">{{ $item->role }}</span></td>
                                     <td>{{ $item->provider }}</td>
-                                    <td>{{ $item->created_at}}</td>
-                                    <td></td>
+                                    <td>{{ $item->created_at->format('j-F-Y')}}</td>
+                                    <td>
+                                        @if($item->role != 'superadmin')
+                                            <button type="button" onclick="deleteProcess({{ $item->id }})" class="btn btn-outline-danger btn-sm">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        @endif
+                                    </td>
                                 </tr> 
                             @endforeach
                         @else
@@ -66,4 +72,33 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-script')
+<script>
+    function deleteProcess($id)
+    {
+        Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    setInterval(() => {
+                        location.href = '/admin/account/admin/delete/' + $id
+                    }, 1000);
+                }
+            });
+    }
+</script>
+
 @endsection

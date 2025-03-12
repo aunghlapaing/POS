@@ -20,7 +20,7 @@
                                 <small class="invalid-feedback">{{ $message }}</small>
                             @enderror
 
-                            <label for="payment" class="form-label" name="AccountType">Account Type</label>
+                            <label for="payment" class="form-label" name="AccountName">Account Name</label>
                             <input type="text" name="account_name" placeholder="Enter Account Type..." value="{{ old('account_name') }}" class="form-control mb-md-2 @error('account_name') is-invalid @enderror">
                             @error('account_name')
                                 <small class="invalid-feedback">{{ $message }}</small>

@@ -56,7 +56,7 @@
                                         <i class="fab fa-google fa-fw"></i> Login with Google
                                     </a>
                                     <a href="{{ route ('socialRedirect', 'github') }}" class="btn btn-facebook btn-user btn-block">
-                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Github
+                                        <i class="fa-brands fa-github"></i> Login with Github
                                     </a>
                                 </form>
                                 <hr>

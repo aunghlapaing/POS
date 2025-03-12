@@ -137,10 +137,6 @@
                                         <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
                                         System User List
                                     </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
-                                    </a>
                                 @endif
                                 
                                 <a class="dropdown-item" href="{{ route('changePasswordPage') }}">

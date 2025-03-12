@@ -8,21 +8,20 @@ use App\Http\Controllers\SocialLoginController;
 require_once __DIR__.'/admin.php';
 require_once __DIR__.'/user.php';
 
-//social login route
+# social login route
 
 Route::group(['prefix'=>'auth'], function(){
     Route::get('{provider}/redirect', [SocialLoginController::class, 'redirect'])->name ('socialRedirect');
     Route::get('{provider}/callback', [SocialLoginController::class, 'callback'])->name ('socialCallBack');
 });
 
-// Route::get ('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])->name ('socialRedirect');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('authentication/login');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin/dashboard/home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

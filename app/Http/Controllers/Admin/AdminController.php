@@ -86,5 +86,13 @@ class AdminController extends Controller
                         ->paginate(4);
         return view('admin/profile/admin_list', compact('userData'));
     }
+
+    # delete system users account
+    public function deleteAccount($id)
+    {
+        User::where('id', $id)->delete();
+
+        return back();
+    }
     
 }

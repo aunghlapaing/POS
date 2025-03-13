@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\SuperAdminMiddleware;
@@ -18,7 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin'=> AdminMiddleware::class,
             'superAdmin'=> SuperAdminMiddleware::class,
-            'user'=> UserMiddleware::class
+            'user'=> UserMiddleware::class,
+            'authentication' => AuthMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

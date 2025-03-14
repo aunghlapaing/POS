@@ -50,7 +50,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Account Number</th>
-                                <th>Account Type</th>
+                                <th>Account Name</th>
                                 <th>Provider</th>
                                 <th></th>
                             </tr>

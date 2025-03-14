@@ -15,7 +15,6 @@
                 </div>
             </div>
             <form action="{{ route('editProfile', $userData->id) }}" method="post" enctype="multipart/form-data">
-
                 @csrf
                 <input type="hidden" name="oldProfile" value="{{ $userData->profile }}">
                 <div class="card-body">

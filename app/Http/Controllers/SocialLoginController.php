@@ -36,6 +36,6 @@ class SocialLoginController extends Controller
      
         Auth::login($user);
      
-        return to_route('testAuth');
+        return to_route('userHome');
     }
 }

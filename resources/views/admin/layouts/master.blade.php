@@ -54,21 +54,21 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('categoryList') }}"><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
+                <a class="nav-link" href="{{ route('categoryList') }}"><i class="fa-solid fa-circle-plus"></i><span>Category </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('productCreatePage') }}"><i class="fa-solid fa-layer-group"></i><span>Add Product
+                <a class="nav-link" href="{{ route('productCreatePage') }}"><i class="fa-solid fa-plus"></i><span>Add Product
                     </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('productList') }}"><i class="fa-solid fa-plus"></i></i><span>Product List </span></a>
+                <a class="nav-link" href="{{ route('productList') }}"><i class="fa-solid fa-layer-group"></i><span>Product List </span></a>
             </li>
 
             @if(Auth()->user()->role == 'superadmin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('paymentPage') }}"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method </span></a>
+                    <a class="nav-link" href="{{ route('paymentPage') }}"><i class="fa-solid fa-credit-card"></i><span>Payment Method </span></a>
                 </li>
             @endif
 
@@ -81,11 +81,11 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i></i><span>Setting </span></a>
+                <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i><span>Setting </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i></i></i><span>Change Password</span></a>
+                <a class="nav-link" href="{{ route('changePasswordPage') }}"><i class="fa-solid fa-lock"></i><span>Change Password</span></a>
             </li>
 
             <li class="nav-item text-center">

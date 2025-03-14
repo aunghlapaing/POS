@@ -19,10 +19,8 @@ class AuthMiddleware
         # after login
         if(Auth::user()) 
         {
-            if( $request->route()->getName() == 'login' || $request->route()->getName() == 'register')
-            {
-                return back();
-            } 
+            return $request->route()->getName() == 'login' || $request->route()->getName() == 'register' ? back() : $next($request);
+            
         }
         # before login
         else

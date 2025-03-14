@@ -31,7 +31,6 @@ class AuthenticatedSessionController extends Controller
 
         // return redirect()->intended(route('adminHome', absolute: false));
 
-        //default authorization without middleware
         if ($request->user()->role == 'admin' || $request->user()->role == "superadmin")
         {
             return to_route('adminHome');
@@ -39,7 +38,7 @@ class AuthenticatedSessionController extends Controller
 
         elseif ($request->user()->role == 'user')
         {
-            return to_route ('testAuth');
+            return to_route('userHome');
         }    
         
     }

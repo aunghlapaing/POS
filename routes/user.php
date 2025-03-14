@@ -9,8 +9,11 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
     Route::get('test/auth', [UserController::class, 'testAuth'])->name('testAuth');
 
     # profile routes
-    Route::group(['prefix' => 'profile'], function(){
+    Route::group(['prefix' => 'profile'], function()
+    {
         Route::get('edit/{id}', [ProfileController::class, 'editPage'])->name('editPage');
         Route::post('update/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
+        Route::get('change/password', [ProfileController::class, 'changePasswordPage'])->name('changePasswordPage');
+        Route::post('change/password', [ProfileController::class, 'changePassword'])->name('changePassword');
     });
 });

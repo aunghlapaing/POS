@@ -33,24 +33,24 @@
                     <div class="row g-4">
                         <div class="col-3">
                             <div class="form">
-                                <form action="" method="get">
+                                <form action="{{ route('userHome') }}" method="get">
 
                                     <div class="input-group">
-                                        <input type="text" name="searchKey" value=""
+                                        <input type="text" name="searchKey" value="{{ old('searchKey') }}"
                                             class=" form-control" placeholder="Enter Search Key...">
                                         <button type="submit" class=" btn"> <i
-                                                class="fa-solid fa-magnifying-glass"></i> </button>
+                                            class="fa-solid fa-magnifying-glass"></i> </button>
                                     </div>
                                 </form>
                             </div>
 
                             <div class="row mt-3">
                                 <div class="col-12">
-                                    <form action="" method="get">
+                                    <form action="{{ route('userHome') }}" method="get">
 
-                                        <input type="text" name="minPrice" value=""
+                                        <input type="text" name="minPrice" value="{{ old('minPrice') }}"
                                             placeholder="Minimum Price..." class=" form-control my-2">
-                                        <input type="text" name="maxPrice" value=""
+                                        <input type="text" name="maxPrice" value="{{ old('maxPrice') }}"
                                             placeholder="Maximun Price..." class=" form-control my-2">
                                         <input type="submit" value="Search" class=" btn btn-success my-2 w-100">
                                     </form>
@@ -59,16 +59,27 @@
 
                             <div class="row">
                                 <div class="col-12">
-                                    <form action="" method="get">
+                                    <form action="{{ route('userHome') }}" method="get">
+
+                                        @csrf
 
                                         <select name="sortingType" class="form-control w-100 bg-white mt-3">
-
+                                            <option value="name,asc" @if(request('sortingType') == 'name,asc') selected @endif>Alpha: A - Z</option>
+                                            <option value="name,desc" @if(request('sortingType') == 'name,desc') selected @endif>Alpha: Z - A</option>
+                                            <option value="price,asc" @if(request('sortingType') == 'price,asc') selected @endif>Price: Low - High</option>
+                                            <option value="price,desc" @if(request('sortingType') == 'price,desc') selected @endif>Price: High - Low</option>
+                                            <option value="created_at,asc" @if(request('sortingType') == 'created_at,asc') selected @endif>Date: Desc - Asc</option>
+                                            <option value="created_at,desc" @if(request('sortingType') == 'created_at,desc') selected @endif>Date: Asc - Desc</option>
                                         </select>
 
                                         <input type="submit" value="Sort" class=" btn btn-success my-3 w-100">
                                     </form>
                                 </div>
                             </div>
+
+                            <a href="{{ route('userHome') }}">
+                                <input type="button" value="Clear Filter" class=" btn btn-danger my-3 w-100">
+                            </a>
 
                         </div>
                         <div class="col-9">

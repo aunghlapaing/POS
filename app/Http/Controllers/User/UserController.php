@@ -14,10 +14,28 @@ class UserController extends Controller
     {
         $productData = Product::select('products.id', 'products.name', 'products.price', 'products.image', 'products.description', 'products.category_id', 'categories.name as category_name')
                                 ->leftJoin('categories', 'products.category_id', 'categories.id')
-                                ->when( request('categoryId'), function($query){
+                                ->when(request('categoryId'), function($query){
                                     $query->where('products.category_id', request('categoryId'));
                                 })
-                                ->orderBy('products.created_at', 'desc')
+                                ->when( request('searchKey'), function($query){
+                                    $query->where('products.name', 'like', '%'. request('searchKey') .'%');
+                                })
+                                # min -> true && max -> true
+                                ->when(request('minPrice') != null && request('maxPrice') != null, function($query){
+                                    $query->whereBetweenBetween('products.price', [request('minPrice'), request('maxPrice')]);
+                                })
+                                # min -> true && max -> false
+                                ->when(request('minPrice') != null && request('maxPrice') == null, function($query){
+                                    $query->where('products.price','>=', request('minPrice'));
+                                })
+                                # min -> false && max -> true
+                                ->when(request('minPrice') == null && request('maxPrice') != null, function($query){
+                                    $query->where('products.price','<=', request('maxPrice'));
+                                })
+                                ->when(request('sortingType'), function($query){
+                                    $sortingRules = explode(',', request('sortingType'));
+                                    $query->orderBy('products.' .$sortingRules[0], $sortingRules[1]);
+                                })
                                 ->get();
 
                                 # dd($productData->toArray());

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\ProfileController;
 
 Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
@@ -15,5 +16,12 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
         Route::post('update/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
         Route::get('change/password', [ProfileController::class, 'changePasswordPage'])->name('changePasswordPage');
         Route::post('change/password', [ProfileController::class, 'changePassword'])->name('changePassword');
+    });
+
+    #product details
+    Route::group(['prefix'=>'product'], function()
+    {
+        Route::get('detial/{id}', [ProductController::class, 'productDetailPage'])->name('productDetailPage');
+        Route::post('comment', [ProductController::class, 'productComment'])->name('productComment');
     });
 });

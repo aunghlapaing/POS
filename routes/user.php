@@ -23,5 +23,6 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
     {
         Route::get('detial/{id}', [ProductController::class, 'productDetailPage'])->name('productDetailPage');
         Route::post('comment', [ProductController::class, 'productComment'])->name('productComment');
+        Route::get('comment/delete/{id}', [ProductController::class, 'commentDelete'])->name('commentDelete');
     });
 });

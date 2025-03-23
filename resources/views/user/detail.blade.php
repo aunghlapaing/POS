@@ -105,7 +105,7 @@
                                 <button class="nav-link border-white border-bottom-0" type="button" role="tab"
                                     id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
                                     aria-controls="nav-mission" aria-selected="false">Customer Comments <span
-                                        class=" btn btn-sm btn-secondary rounted shadow-sm"></span>
+                                        class=" btn btn-sm btn-secondary rounted shadow-sm">{{ count($commentData) }}</span>
 
                                 </button>
                             </div>
@@ -119,21 +119,23 @@
                                 aria-labelledby="nav-mission-tab">
 
 
+                                @foreach($commentData as $item)
                                 <div class="d-flex">
-                                    <img src="" class="img-fluid rounded-circle p-3"
+                                    <img src="{{ asset( $item->user_profile == null ? 'default/userProfile.png' : 'user/profile/' . $item->user_profile) }}" class="img-fluid rounded-circle p-3"
                                         style="width: 100px; height: 100px;">
                                     <div class="">
-                                        <p class="" style="font-size: 14px;">
-                                        </p>
+                                        <p class="" style="font-size: 14px;">{{ $item->created_at->format('j-F-Y h:m') }}</p>
                                         <div class="d-flex justify-content-between">
-                                            <h5></h5>
-
+                                            <h5>{{ $item->user_name }}</h5>
+                                            @if($item->user_id == Auth::user()->id)
+                                                <button type="button" class="btn btn-outline-danger btn-sm ms-3 mb-2" onclick="deleteProcess({{ $item->comment_id }})"><i class="fa-solid fa-trash me-2"></i>Delete Comment</button>
+                                            @endif
                                         </div>
-                                        <p></p>
+                                        <p class="text-muted">{{ $item->message }}</p>
                                     </div>
                                 </div>
                                 <hr>
-
+                                @endforeach
 
                             </div>
                             <div class="tab-pane" id="nav-vision" role="tabpanel">
@@ -151,15 +153,17 @@
                     <form action="{{ route('productComment') }}" method="post">
                         @csrf
                         <input type="hidden" name="productId" value="{{ $productData->id }}">
-                        <h4 class="mb-5 fw-bold">
+                        <h4 class="mb-3 fw-bold">
                             Leave a Comments
                         </h4>
                         <div class="row g-1">
                             <div class="col-lg-12">
-                                <div class="border-bottom rounded ">
-                                    <textarea name="comment" id="" class="form-control border-0 shadow-sm" cols="30"
-                                        rows="8" placeholder="Your Review *" value="{{ old('comment') }}" spellcheck="false"></textarea>
-                                </div>
+                                <textarea name="comment" id="" class="form-control border-0 shadow-sm @error('comment') is-invalid @enderror" cols="30"
+                                    rows="8" placeholder="Your Review *" spellcheck="false">
+                                </textarea>
+                                @error('comment')
+                                    <small class="invalid-feedback">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-lg-12">
                                 <div class="d-flex justify-content-between py-3 mb-5">
@@ -203,4 +207,34 @@
     </div>
 </div>
 
+@endsection
+
+@section('js-script')
+
+<script>
+    function deleteProcess($id)
+    {
+        Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+            });
+            setInterval(() => {
+                location.href = '/user/product/comment/delete/' + $id
+                
+            }, 1000);
+        }
+        });
+    }
+</script>
 @endsection

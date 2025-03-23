@@ -79,6 +79,20 @@
 
                                             <div class="rating-css">
                                                 <div class="star-icon">
+                                                    <input type="radio" value="1" name="productRating" checked id="rating1">
+                                                    <label for="rating1" class="fa fa-star"></label>
+
+                                                    <input type="radio" value="2" name="productRating" id="rating2">
+                                                    <label for="rating2" class="fa fa-star"></label>
+
+                                                    <input type="radio" value="3" name="productRating" id="rating3">
+                                                    <label for="rating3" class="fa fa-star"></label>
+
+                                                    <input type="radio" value="4" name="productRating" id="rating4">
+                                                    <label for="rating4" class="fa fa-star"></label>
+
+                                                    <input type="radio" value="5" name="productRating" id="rating5">
+                                                    <label for="rating5" class="fa fa-star"></label>
 
                                                 </div>
                                             </div>

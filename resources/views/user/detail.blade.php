@@ -22,11 +22,17 @@
                         <h5 class="fw-bold mb-3">{{ $productData->price }} mmk</h5>
                         <div class="d-flex mb-4">
                             <span class=" ">
+                                @for( $i = 1; $i <= $ratingCount; $i++ )
+                                    <i class="fa-solid fa-star text-warning"></i>
+                                @endfor
 
+                                @for( $j = $ratingCount+1; $j <= 5 ; $j++ )
+                                    <i class="fa-regular fa-star text-warning"></i>
+                                @endfor    
                             </span>
 
                             <span class=" ms-4">
-                                <i class="fa-solid fa-eye"></i>
+                                {{-- <i class="fa-solid fa-eye"></i> --}}
                             </span>
 
                         </div>
@@ -66,37 +72,45 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Rate this product
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                            Rate this product
                                         </h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form action="" method="post">
-
+                                    <form action="{{ route('rating') }}" method="post">
+                                        @csrf
                                         <div class="modal-body">
-
-                                            <input type="hidden" name="productId" value="">
-
+                                            <input type="hidden" name="productId" value="{{ $productData->id }}">
                                             <div class="rating-css">
                                                 <div class="star-icon">
-                                                    <input type="radio" value="1" name="productRating" checked id="rating1">
-                                                    <label for="rating1" class="fa fa-star"></label>
+                                                    @if( $userRating == 0)
+                                                        <input type="radio" value="1" name="productRating" checked id="rating1">
+                                                        <label for="rating1" class="fa fa-star"></label>
 
-                                                    <input type="radio" value="2" name="productRating" id="rating2">
-                                                    <label for="rating2" class="fa fa-star"></label>
+                                                        <input type="radio" value="2" name="productRating" id="rating2">
+                                                        <label for="rating2" class="fa fa-star"></label>
 
-                                                    <input type="radio" value="3" name="productRating" id="rating3">
-                                                    <label for="rating3" class="fa fa-star"></label>
+                                                        <input type="radio" value="3" name="productRating" id="rating3">
+                                                        <label for="rating3" class="fa fa-star"></label>
 
-                                                    <input type="radio" value="4" name="productRating" id="rating4">
-                                                    <label for="rating4" class="fa fa-star"></label>
+                                                        <input type="radio" value="4" name="productRating" id="rating4">
+                                                        <label for="rating4" class="fa fa-star"></label>
 
-                                                    <input type="radio" value="5" name="productRating" id="rating5">
-                                                    <label for="rating5" class="fa fa-star"></label>
+                                                        <input type="radio" value="5" name="productRating" id="rating5">
+                                                        <label for="rating5" class="fa fa-star"></label>
+                                                    @else
+                                                        @for( $i = 1; $i <= $userRating; $i++ )
+                                                            <input type="radio" value="{{ $i }}" name="productRating" checked id="rating{{ $i }}">
+                                                            <label for="rating{{ $i }}" class="fa fa-star"></label>
+                                                        @endfor                    
+                                                        @for( $j = $userRating+1; $j <= 5 ; $j++ )
+                                                            <input type="radio" value="{{ $j }}" name="productRating" id="rating{{ $j }}">
+                                                            <label for="rating{{ $j }}" class="fa fa-star"></label>
+                                                        @endfor    
+                                                    @endif
 
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
@@ -107,8 +121,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="col-lg-12">
                         <nav>
@@ -118,9 +130,8 @@
                                     aria-controls="nav-about" aria-selected="true">Description</button>
                                 <button class="nav-link border-white border-bottom-0" type="button" role="tab"
                                     id="nav-mission-tab" data-bs-toggle="tab" data-bs-target="#nav-mission"
-                                    aria-controls="nav-mission" aria-selected="false">Customer Comments <span
-                                        class=" btn btn-sm btn-secondary rounted shadow-sm">{{ count($commentData) }}</span>
-
+                                    aria-controls="nav-mission" aria-selected="false">Customer Comments
+                                    <span class=" btn btn-sm btn-secondary rounted shadow-sm">{{ count($commentData) }}</span>
                                 </button>
                             </div>
                         </nav>
@@ -173,8 +184,7 @@
                         <div class="row g-1">
                             <div class="col-lg-12">
                                 <textarea name="comment" id="" class="form-control border-0 shadow-sm @error('comment') is-invalid @enderror" cols="30"
-                                    rows="8" placeholder="Your Review *" spellcheck="false">
-                                </textarea>
+                                    rows="8" placeholder="Your review* " spellcheck="false"></textarea>
                                 @error('comment')
                                     <small class="invalid-feedback">{{ $message }}</small>
                                 @enderror

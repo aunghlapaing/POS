@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Rating;
 use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -29,8 +30,21 @@ class ProductController extends Controller
                                 ->leftJoin('users', 'users.id', 'comments.user_id')
                                 ->orderBy('comments.created_at', 'desc')
                                 ->get();
+        
+        $ratingCount = number_format(Rating::where('product_id', $id)->avg('count')) ;
 
-        return view('user.detail', compact('productData', 'productList', 'commentData'));
+        $userRating = number_format(Rating::where('product_id', $id)->where('user_id', Auth::user()->id)->avg('count'));
+
+        # $count = 0;
+        # foreach($ratingCount as $item)
+        # {
+            # $count += $item->count;
+        # }
+
+        # $avgRating = $count/count($ratingCount);
+        # dd($ratingCount);
+
+        return view('user.detail', compact('productData', 'productList', 'commentData', 'ratingCount', 'userRating'));
     }
 
     # product comment function
@@ -56,6 +70,24 @@ class ProductController extends Controller
     public function commentDelete($id)
     {
         Comment::where('id',$id)->delete();
+        return back();
+    }
+
+    # rating function
+    public function rating(Request $request)
+    {
+        # create or update query
+        Rating::updateOrCreate([
+            'user_id' => Auth::user()->id,
+            'product_id' => $request->productId
+        ],[
+            'product_id' => $request->productId,
+            'user_id' => Auth::user()->id,
+            'count' => $request->productRating
+        ]);
+
+        # Alert::success('Successful', 'Product Rating given');
+
         return back();
     }
 

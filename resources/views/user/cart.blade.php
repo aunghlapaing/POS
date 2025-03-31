@@ -36,14 +36,14 @@
                         <td>
                             <div class="input-group quantity mt-4" style="width: 100px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border" >
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
                                 <input type="text" class="form-control qty form-control-sm text-center border-0"
                                     value="{{ $item->qty }}">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border" >
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -97,5 +97,21 @@
     </div>
 </div>
 <!-- Cart Page End -->
+
+@endsection
+
+@section('js-script')
+
+<script>
+    $(document).ready(function(){
+        $('.btn-minus').click(function(){
+            console.log('minus btn click');
+        })
+    
+        $('.btn-plus').click(function(){
+            console.log('plus btn click');
+        })
+    })
+</script>
 
 @endsection

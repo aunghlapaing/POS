@@ -25,5 +25,7 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
         Route::post('comment', [ProductController::class, 'productComment'])->name('productComment');
         Route::get('comment/delete/{id}', [ProductController::class, 'commentDelete'])->name('commentDelete');
         Route::post('rating', [ProductController::class, 'rating'])->name('rating');
+        Route::get('cart', [ProductController::class, 'cartPage'])->name('cartPage');
+        Route::post('cart', [ProductController::class, 'addToCart'])->name('addToCart');
     });
 });

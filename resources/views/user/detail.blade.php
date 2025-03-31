@@ -37,10 +37,10 @@
 
                         </div>
                         <p class="mb-4">{{ $productData->description }}</p>
-                        <form action="" method="post">
-
-                            <input type="hidden" name="userId" value="">
-                            <input type="hidden" name="productId" value="">
+                        <form action="{{ route('addToCart') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="productId" value="{{ $productData->id }}">
                             <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
                                     <button type="button"
@@ -48,7 +48,7 @@
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" name="count"
+                                <input type="text" name="qty"
                                     class="form-control form-control-sm text-center border-0" value="1">
                                 <div class="input-group-btn">
                                     <button type="button"
@@ -61,11 +61,11 @@
                                 class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                     class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</button>
 
-
                             <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                 class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                     class="fa-solid fa-star me-2 text-secondary"></i> Rate this product</button>
                         </form>
+
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">

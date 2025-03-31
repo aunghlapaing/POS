@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Cart;
 use App\Models\Rating;
 use App\Models\Comment;
 use App\Models\Product;
@@ -87,6 +88,32 @@ class ProductController extends Controller
         ]);
 
         # Alert::success('Successful', 'Product Rating given');
+
+        return back();
+    }
+
+    #cart page
+    public function cartPage()
+    {
+        $cartData = Cart::select('carts.id as cart_id', 'carts.qty', 'products.id as product_id', 'products.name', 'products.price', 'products.image')
+                    ->leftJoin('products', 'carts.product_id', 'products.id')
+                    ->where('carts.user_id', Auth::user()->id)
+                    ->get();
+
+        # dd($cartData->toArray());
+        return view('user.cart', compact('cartData'));
+    }
+
+    # add to cart function
+    public function  addToCart(Request $request)
+    {
+        # dd($request->toArray());
+
+        Cart::create([
+            'user_id' => $request->userId,
+            'product_id' => $request->productId,
+            'qty' => $request->qty 
+        ]);
 
         return back();
     }

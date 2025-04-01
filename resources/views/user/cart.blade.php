@@ -75,18 +75,18 @@
                         <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                         <div class="d-flex justify-content-between mb-4">
                             <h5 class="mb-0 me-4">Subtotal:</h5>
-                            <p class="mb-0" id="subtotal">mmk</p>
+                            <p class="mb-0" id="subtotal">{{ $totalPrice }}mmk</p>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h5 class="mb-0 me-4">Delivery </h5>
-                            <div class="">
+                            <div class="" id="deli">
                                 <p class="mb-0"> 5000 mmk </p>
                             </div>
                         </div>
                     </div>
                     <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                         <h5 class="mb-0 ps-4 me-4">Total</h5>
-                        <p class="mb-0 pe-4 " id="finalTotal"> mmk</p>
+                        <p class="mb-0 pe-4 " id="finalTotal"> {{ $totalPrice + 5000 }} mmk</p>
                     </div>
                     <button id="btn-checkout"
                         class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
@@ -105,12 +105,37 @@
 <script>
     $(document).ready(function(){
         $('.btn-minus').click(function(){
-            console.log('minus btn click');
+            carTotalPrice (this);
+            finalTotalPriceCalculation();
         })
     
         $('.btn-plus').click(function(){
-            console.log('plus btn click');
+            carTotalPrice (this);
+            finalTotalPriceCalculation();
         })
+
+        function carTotalPrice (event)
+        {
+            let parentNode = $(event).parents("tr");
+
+            let price = parentNode.find(".price").text().replace("mmk", "");
+            let qty = parentNode.find(".qty").val();
+
+        parentNode.find(".total").text( ` ${ price * qty } mmk ` );
+            
+        }
+
+        function finalTotalPriceCalculation()
+        {
+            let total = 0;
+
+           $("#productTable tbody tr").each(function(index, item){
+                total += Number( $(item).find(".total").text().replace("mmk", "") );
+  
+           })
+           $("#subtotal").html(` ${total} mmk `)
+           $("#finalTotal").html(` ${total+5000 } mmk `)
+        }
     })
 </script>
 

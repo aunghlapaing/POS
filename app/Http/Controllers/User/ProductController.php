@@ -100,8 +100,15 @@ class ProductController extends Controller
                     ->where('carts.user_id', Auth::user()->id)
                     ->get();
 
+        $totalPrice = 0;
+
+        foreach($cartData as $item)
+        {
+            $totalPrice += $item->price * $item->qty;
+        }
+
         # dd($cartData->toArray());
-        return view('user.cart', compact('cartData'));
+        return view('user.cart', compact('cartData', 'totalPrice'));
     }
 
     # add to cart function

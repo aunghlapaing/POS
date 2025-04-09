@@ -27,5 +27,6 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
         Route::post('rating', [ProductController::class, 'rating'])->name('rating');
         Route::get('cart', [ProductController::class, 'cartPage'])->name('cartPage');
         Route::post('cart', [ProductController::class, 'addToCart'])->name('addToCart');
+        Route::get('cartDelete', [ProductController::class, 'cardDelete'])->name('cardDelete');
     });
 });

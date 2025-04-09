@@ -53,7 +53,7 @@
                             <p class="mb-0 mt-4 total">{{ $item->price * $item->qty }} mmk</p>
                         </td>
                         <td>
-                            <input type="hidden" class="cartId" value="">
+                            <input type="hidden" class="cartId" value="{{ $item->cart_id }}">
                             <input type="hidden" class="productId" value="">
                             <button class="btn btn-md rounded-circle bg-light border mt-4 btn-remove">
                                 <i class="fa fa-times text-danger"></i>
@@ -136,6 +136,33 @@
            $("#subtotal").html(` ${total} mmk `)
            $("#finalTotal").html(` ${total+5000 } mmk `)
         }
+
+        $('.btn-remove').click(function()
+        {
+            parentNode = $(this).parents('tr');
+
+            cartId = parentNode.find('.cartId').val();
+
+            deleteCartData = {
+                'cartId' : cartId
+            };
+
+            $.ajax({
+                type : 'get' ,
+                url : '/user/product/cartDelete' ,
+                data : deleteCartData ,
+                dataType : 'json' , 
+                success : function (res)
+                {
+                    res.status == 'success' ? location.reload() : '' ;
+                    
+                }
+
+            })
+            
+            
+            
+        })
     })
 </script>
 

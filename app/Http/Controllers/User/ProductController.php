@@ -125,6 +125,19 @@ class ProductController extends Controller
         return back();
     }
 
+    # cart delete function
+    public function cardDelete(Request $request)
+    {
+        $cartId = $request['cartId'];
+
+        Cart::where('id', $cartId)->delete();
+
+        return response()->json([
+            'status' => 'success' , 
+            'message' => 'Cart delete process success!'
+        ],200);
+    }
+
     # get data function
     public function getData ($request)
     {

@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Rating;
 use App\Models\Comment;
+use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\PaymentHistories;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
@@ -136,6 +140,101 @@ class ProductController extends Controller
             'status' => 'success' , 
             'message' => 'Cart delete process success!'
         ],200);
+    }
+
+    # payment Page
+    public function paymentPage()
+    {
+        # logger(Session::get('tempCart'));
+        $paymentAcc = Payment::select('id','account_name', 'account_number', 'type')->orderBy('type', 'asc')->get();
+        $orderTemp = Session::get('tempCart');
+        # dd($orderTemp);
+        return view('user.payment', compact('paymentAcc', 'orderTemp'));
+    }
+
+    #temp storage function
+    public function tempStorage(Request $request)
+    {
+
+        $orderListTemp = [];
+
+        foreach($request->all() as $item)
+        {
+            array_push($orderListTemp,
+            [
+                'user_id' => $item['user_id'],
+                'product_id' => $item['product_id'],
+                'count' => $item['count'],
+                'status' => $item['status'],
+                'order_code' => $item['order_code'],
+                'finalTotalPrice' => $item['finalTotalPrice']
+            ]);
+        }
+
+        Session::put('tempCart', $orderListTemp);
+
+        return response()->json([
+            'status' => 'success' ,
+            'message' => 'Data add to temp storage successfully'
+        ], 200);
+
+    }
+
+    #order function
+    public function order(Request $request) 
+    {
+
+        // dd($request->toArray());
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'address' => 'required|min:5|max:200',
+            'paymentType'=> 'required',
+            'payslipImage' => 'required|file|mimes:png,jpeg,jpg,svg,webp',
+        ]);
+
+        $paymentData = [
+            'user_name' => $request->name,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'payment_method' => $request->paymentType,
+            'order_code' => $request->orderCode,
+            'total_amt' => $request->totalAmount
+        ];
+
+        if($request->hasFile('payslipImage'))
+        {
+            $fileName = uniqid().$request->file('payslipImage')->getClientOriginalName();
+            $request->file('payslipImage')->move(public_path()."/payslipImage/", $fileName);
+            $paymentData['payslip_image'] = $fileName;
+        }
+
+        // dd($paymentData);
+
+        PaymentHistories::create($paymentData);
+
+        $orderTemp = Session::get('tempCart');
+
+        foreach($orderTemp as $item)
+        {
+            Order::create([
+                'product_id' => $item['product_id'],
+                'user_id' => $item['user_id'],
+                'count' => $item['count'],
+                'status' => $item['status'],
+                'order_code' => $item['order_code'],
+                'total_price' => $item['finalTotalPrice']
+            ]);
+
+            Cart::where("user_id", Auth::user()->id)
+                ->where('product_id', $item['product_id'])
+                ->delete();
+        }
+
+
+        Alert::success('successful!', 'Thanks you for shopping with us!');
+        return back();
+
     }
 
     # get data function

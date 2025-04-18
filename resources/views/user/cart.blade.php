@@ -54,7 +54,8 @@
                         </td>
                         <td>
                             <input type="hidden" class="cartId" value="{{ $item->cart_id }}">
-                            <input type="hidden" class="productId" value="">
+                            <input type="hidden" class="productId" value="{{ $item->product_id }}">
+                            <input type="hidden" name="" class="userId" value="{{ Auth::user()->id }}">
                             <button class="btn btn-md rounded-circle bg-light border mt-4 btn-remove">
                                 <i class="fa fa-times text-danger"></i>
                             </button>
@@ -90,7 +91,7 @@
                     </div>
                     <button id="btn-checkout"
                         class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                        type="button">Proceed Checkout</button>
+                        type="button" @if(count($cartData) == 0) disabled @endif>Proceed Checkout</button>
                 </div>
             </div>
         </div>
@@ -156,12 +157,54 @@
                 {
                     res.status == 'success' ? location.reload() : '' ;
                     
+                } , 
+                error : function ()
+                {
+                    console.log('404 error!');
+                    
                 }
 
             })
             
-            
-            
+        })
+    })
+
+    $("#btn-checkout").click(function()
+    {
+        orderList = [];
+        userId = $('.userId').val();
+        orderCode ="CL-POS-" + Math.floor(Math.random()*10000000);
+
+        $('#productTable tbody tr').each(function(index, item)
+        {
+            productId = $(item).find('.productId').val();
+            qty = $(item).find('.qty').val();
+            finalTotalPrice = $('#finalTotal').text().replace('mmk', '');
+
+        orderList.push({
+            'product_id' : productId,
+            'user_id' : userId,
+            'count' :qty,
+            'order_code' : orderCode,
+            'status' : 0,
+            'finalTotalPrice' : finalTotalPrice
+        });
+        
+        })
+
+        $.ajax({
+            type : 'get',
+            url : '/user/product/tempStorage', 
+            data : Object.assign({}, orderList),
+            dataType : 'json' ,
+            success : function(res)
+            {
+                res.status == 'success' ? location.href = '/user/product/paymentPage' : location.reload() ;
+            },
+            error : function()
+            {
+                console.log ('404 error!');
+            }
         })
     })
 </script>

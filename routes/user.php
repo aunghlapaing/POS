@@ -28,5 +28,8 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
         Route::get('cart', [ProductController::class, 'cartPage'])->name('cartPage');
         Route::post('cart', [ProductController::class, 'addToCart'])->name('addToCart');
         Route::get('cartDelete', [ProductController::class, 'cardDelete'])->name('cardDelete');
+        Route::get('paymentPage', [ProductController::class, 'paymentPage'])->name('paymentPage');
+        Route::get('tempStorage', [ProductController::class, 'tempStorage'])->name('tempStorage');
+        Route::post('order', [ProductController::class, 'order'])->name('order');
     });
 });

@@ -62,7 +62,7 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
     Route::group(['prefix'=>'order'], function()
     {
         Route::get('list', [OrderController::class, 'orderListPage'])->name('orderListPage');
-        Route::get('detail', [OrderController::class, 'orderDetailPage'])->name('orderDetailPage');
+        Route::get('detail/{orderCode}', [OrderController::class, 'orderDetailPage'])->name('orderDetailPage');
     });
     
 });

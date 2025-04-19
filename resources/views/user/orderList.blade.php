@@ -23,7 +23,7 @@
                                 <i class="fa-solid fa-hourglass-half btn btn-sm btn-warning me-2"></i>
                                 <span class="text-warning">Pending</span>
                             @elseif( $item->status == 1 )
-                                <i class="fa-solid fa-check btn btn-sm btn-primary me-2"></i>
+                                <i class="fa-solid fa-check btn btn-sm btn-success me-2"></i>
                                 <span class="text-primary">Completed</span>
                             @elseif( $item->status == 2 )
                                 <i class="fa-solid fa-xmark btn btn-sm btn-danger me-2"></i>

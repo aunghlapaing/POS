@@ -39,7 +39,7 @@
                 @foreach($orderList as $data)
                     <tr>
                         <td>{{ $data->created_at->format('j-F-Y') }}</td>
-                        <td><a href="{{ route('orderDetailPage') }}">{{ $data->order_code  }}</a></td>
+                        <td><a href="{{ route('orderDetailPage',$data->order_code) }}">{{ $data->order_code  }}</a></td>
                         <td>{{ $data->user_name }}</td>
                         <td>
                             <select name="status" id="status" class="form-control">

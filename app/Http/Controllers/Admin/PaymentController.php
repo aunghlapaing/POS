@@ -27,7 +27,7 @@ class PaymentController extends Controller
         # alert message
         Alert::success('Successful!', 'Payment Created!');
 
-        return to_route('paymentPage');
+        return back();
     }
 
     # payment edit 
@@ -49,7 +49,7 @@ class PaymentController extends Controller
         # alert message
         Alert::success('Successful!', 'Payment Updated');
 
-        return to_route('paymentPage');
+        return back();
     }
 
     # payment delete

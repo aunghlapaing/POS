@@ -68,7 +68,7 @@
 
             @if(Auth()->user()->role == 'superadmin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('paymentPage') }}"><i class="fa-solid fa-credit-card"></i><span>Payment Method </span></a>
+                    <a class="nav-link" href="{{ url('admin/payment/page') }}"><i class="fa-solid fa-credit-card"></i><span>Payment Method </span></a>
                 </li>
             @endif
 
@@ -77,7 +77,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><span>Order Board </span></a>
+                <a class="nav-link" href="{{ url('admin/order/list') }}"><i class="fa-solid fa-cart-shopping"></i><span>Order Board </span></a>
             </li>
 
             <li class="nav-item">
@@ -85,7 +85,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('changePasswordPage') }}"><i class="fa-solid fa-lock"></i><span>Change Password</span></a>
+                <a class="nav-link" href="{{ url('admin/profile/changePasswordPage') }}"><i class="fa-solid fa-lock"></i><span>Change Password</span></a>
             </li>
 
             <li class="nav-item text-center">
@@ -139,7 +139,7 @@
                                     </a>
                                 @endif
                                 
-                                <a class="dropdown-item" href="{{ route('changePasswordPage') }}">
+                                <a class="dropdown-item" href="{{ url('admin/profile/changePasswordPage') }}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password
                                 </a>

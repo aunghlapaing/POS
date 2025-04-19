@@ -233,8 +233,19 @@ class ProductController extends Controller
 
 
         Alert::success('successful!', 'Thanks you for shopping with us!');
-        return back();
+        return to_route('orderListPage');
 
+    }
+
+    # Order list page
+    public function orderListPage()
+    {
+        $orderList = Order::where('user_id', Auth::user()->id)
+                            ->groupBy('order_code')
+                            ->orderBy('created_at','desc')
+                            ->get();
+
+        return view('user.orderList', compact('orderList'));
     }
 
     # get data function

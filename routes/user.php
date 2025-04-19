@@ -31,5 +31,7 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
         Route::get('paymentPage', [ProductController::class, 'paymentPage'])->name('paymentPage');
         Route::get('tempStorage', [ProductController::class, 'tempStorage'])->name('tempStorage');
         Route::post('order', [ProductController::class, 'order'])->name('order');
+
+        Route::get('orderListPage', [ProductController::class, 'orderListPage'])->name('orderListPage');
     });
 });

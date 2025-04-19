@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -56,6 +57,12 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
             Route::get('admin/list/{action?}', [AdminController::class, 'adminListPage'])->name('adminListPage');
             Route::get('admin/delete/{id}', [AdminController::class, 'deleteAccount'])->name('deleteAccount');
         });
+    });
+
+    Route::group(['prefix'=>'order'], function()
+    {
+        Route::get('list', [OrderController::class, 'orderListPage'])->name('orderListPage');
+        Route::get('detail', [OrderController::class, 'orderDetailPage'])->name('orderDetailPage');
     });
     
 });

@@ -63,6 +63,10 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
     {
         Route::get('list', [OrderController::class, 'orderListPage'])->name('orderListPage');
         Route::get('detail/{orderCode}', [OrderController::class, 'orderDetailPage'])->name('orderDetailPage');
+
+        Route::get('reject', [OrderController::class, 'orderReject'])->name('orderReject');
+        Route::get('confirm', [OrderController::class, 'orderConfirm'])->name('orderConfirm');
+
     });
     
 });

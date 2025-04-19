@@ -48,6 +48,7 @@ class OrderController extends Controller
                                             'payment_histories.phone', 
                                             'payment_histories.address', 
                                             'payments.type as payment_method', 
+                                            'payment_histories.total_amt',
                                             'payment_histories.created_at as payment_date',
                                             'payment_histories.payslip_image as slip'
                                             )
@@ -56,5 +57,35 @@ class OrderController extends Controller
                                             ->first();
 
         return view('admin.order.detail', compact('orderDetail', 'paymentHistory'));
+    }
+
+    # order reject function
+    public function orderReject(Request $request)
+    {
+        logger($request);
+        Order::where('order_code', $request->orderCode)
+            ->update([
+                'status' => 2 
+            ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Order rejected successful!'
+        ]);
+        
+    }
+
+    # order confirm function
+    public function orderConfirm(Request $request)
+    {
+        Order::where('order_code', $request->orderCode)
+            ->update([
+                'status' => 1
+            ]);
+
+        return response()->json([
+            'status' => 'success' ,
+            'message' => 'Order confirmed successful!'
+        ]);
     }
 }

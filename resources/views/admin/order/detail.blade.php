@@ -43,7 +43,7 @@
                 <div class="row mb-3">
                     <div class="col-5">Total Price : </div>
                     <div class="col-7">
-                        {{ $paymentHistory->total_amt }}mmk<br>
+                        {{ $paymentHistory->total_amt }} MMK<br>
                         <small class=" text-danger ms-1">( Contain Delivery Charges )</small>
                     </div>
                 </div>
@@ -131,5 +131,45 @@
     </div>
 
 </div>
+
+@endsection
+
+@section('js-script')
+<script>
+    $(document).ready(function(){
+        $('#btn-order-confirm').click(function(){
+            orderCode =$('#orderCode').text();
+            
+            $.ajax({
+                type : 'get' ,
+                url : '/admin/order/confirm' ,
+                data : {'orderCode' : orderCode} ,
+                dataType : 'json',
+                success : function(res)
+                {
+                    res.status == 'success' ? location.href = '/admin/order/list' : '' ;
+                }
+            })
+            
+        })
+
+        $('#btn-order-reject').click(function(){
+            orderCode =$('#orderCode').text();
+            console.log(orderCode);
+
+            $.ajax({
+                type : 'get',
+                url : '/admin/order/reject',
+                data : { 'orderCode' : orderCode } ,
+                dataType : 'json',
+                success : function(res)
+                {
+                    res.status == 'success' ? location.href = '/admin/order/list' : '' ;
+                }
+            })
+
+        })
+    })
+</script>
 
 @endsection

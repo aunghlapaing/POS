@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\ProductController;
 use App\Http\Controllers\User\ProfileController;
 
@@ -16,6 +17,7 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
         Route::post('update/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
         Route::get('change/password', [ProfileController::class, 'changePasswordPage'])->name('changePasswordPage');
         Route::post('change/password', [ProfileController::class, 'changePassword'])->name('changePassword');
+
     });
 
     #product details
@@ -33,5 +35,12 @@ Route:: group (['prefix'=> 'user', "middleware"=>"user"], function(){
         Route::post('order', [ProductController::class, 'order'])->name('order');
 
         Route::get('orderListPage', [ProductController::class, 'orderListPage'])->name('orderListPage');
+    });
+
+    # contact routes
+    Route::group(['prefix'=>'contact'], function()
+    {
+        Route::get('contact/page', [ContactController::class, 'contactPage'])->name('contactPage');
+        Route::post('contact/page', [ContactController::class, 'contact'])->name('contact');
     });
 });

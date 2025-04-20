@@ -53,7 +53,7 @@
                     <div class="navbar-nav mx-auto">
                         <a href="{{ route('userHome') }}" class="nav-item nav-link ">Shop</a>
                         <a href="{{ route('cartPage') }}" class="nav-item nav-link">Cart</a>
-                        <a href="#" class="nav-item nav-link">Contact</a>
+                        <a href="{{ route('contactPage') }}" class="nav-item nav-link">Contact</a>
 
                     </div>
                     <div class="d-flex m-3 me-0">

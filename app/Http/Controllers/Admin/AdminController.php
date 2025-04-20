@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Models\PaymentHistories;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +15,11 @@ class AdminController extends Controller
 {
     # redirect to the admin home page
     public function adminHome (){
-        return view('admin/dashboard/home');
+        $totalEarning = PaymentHistories::sum('total_amt');
+        $totalOrderCount = Order::whereIn('status',[0,1])->count('id');
+        $registeredUsreCount = User::where('role', 'user')->count('id');
+        $orderPending = Order::where('status', [0])->count('id');
+        return view('admin/dashboard/home', compact('totalEarning','totalOrderCount', 'registeredUsreCount', 'orderPending'));
     }
     
     # create new admin account page by super admin

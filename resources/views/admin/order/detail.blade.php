@@ -23,13 +23,13 @@
                 <div class="row mb-3">
                     <div class="col-5">Phone : </div>
                     <div class="col-7">
-                        {{ $orderDetail[0]->user_phone }}
+                        {{ $orderDetail[0]->user_phone == null ? '---' : $orderDetail[0]->user_phone; }}
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-5">Addr : </div>
+                    <div class="col-5">Address : </div>
                     <div class="col-7">
-                        {{ $orderDetail[0]->user_address }}
+                        {{ $orderDetail[0]->user_address == null ? '---' : $orderDetail[0]->user_address; }}
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -60,6 +60,10 @@
                     <div class="col-7">{{ $paymentHistory->phone }}</div>
                 </div>
                 <div class="row mb-3">
+                    <div class="col-5">Address :</div>
+                    <div class="col-7">{{ $paymentHistory->address }}</div>
+                </div>
+                <div class="row mb-3">
                     <div class="col-5">Payment Method :</div>
                     <div class="col-7">{{ $paymentHistory->payment_method }}</div>
                 </div>
@@ -84,7 +88,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover shadow-sm " id="productTable">
+                <table class="table table-hover shadow-sm " id="data-table">
                     <thead class="bg-primary text-white">
                         <tr>
                             <th class="col-2">Image</th>
@@ -99,8 +103,8 @@
 
                         @foreach($orderDetail as $item)
                             <tr>
-                                <input type="hidden" class="productId" value="">
-                                <input type="hidden" class="productOrderCount" value="">
+                                <input type="hidden" class="productId" value="{{ $item->product_id }}">
+                                <input type="hidden" class="productOrderCount" value="{{ $item->order_count }}">
 
                                 <td>
                                     <img src="{{ asset('productImage/'. $item->product_image) }}" class=" w-50 img-thumbnail">
@@ -121,11 +125,13 @@
         </div>
         <div class="card-footer d-flex justify-content-end">
             <div class="">
-                <input type="button" id="btn-order-confirm" class="btn btn-success rounded shadow-sm"
-                    value="Confirm">
-
-                <input type="button" id="btn-order-reject" class="btn btn-danger rounded shadow-sm"
-                    value="Reject">
+                @if($status) 
+                    <input type="button" id="btn-order-confirm" class="btn btn-success rounded shadow-sm"
+                        value="Confirm">
+                 @endif
+                
+                    <input type="button" id="btn-order-reject" class="btn btn-danger rounded shadow-sm"
+                        value="Reject">
             </div>
         </div>
     </div>
@@ -139,11 +145,24 @@
     $(document).ready(function(){
         $('#btn-order-confirm').click(function(){
             orderCode =$('#orderCode').text();
+            orderList = [];
+
+            $('#data-table tbody tr').each(function(index,row){
+                productId = $(row).find('.productId').val();
+                orderCount = $(row).find('.productOrderCount').val();
+
+                orderList.push({
+                    'order_code' : orderCode,
+                    'product_id' : productId,
+                    'order_count' : orderCount
+            })
+            });
+
             
             $.ajax({
                 type : 'get' ,
                 url : '/admin/order/confirm' ,
-                data : {'orderCode' : orderCode} ,
+                data : Object.assign({},orderList) ,
                 dataType : 'json',
                 success : function(res)
                 {

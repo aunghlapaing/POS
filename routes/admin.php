@@ -33,7 +33,7 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
 
     Route::group(['prefix'=>'profile'], function(){
         Route::get('changePasswordPage', [ProfileController::class, 'changePasswordPage'])->name('changePasswordPage');
-        Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
+        Route::post('changeAdminPassword', [ProfileController::class, 'changeAdminPassword'])->name('changeAdminPassword');
         Route::get('edit/profilePage', [ProfileController::class, 'editProfilePage'])->name('editProfilePage');
         Route::post('edit/profile/{id}', [ProfileController::class, 'editProfile'])->name('editProfile');
     });
@@ -66,6 +66,8 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'], function(){
 
         Route::get('reject', [OrderController::class, 'orderReject'])->name('orderReject');
         Route::get('confirm', [OrderController::class, 'orderConfirm'])->name('orderConfirm');
+
+        Route::get('status/change', [OrderController::class, 'statusChange'])->name('statusChange');
 
     });
     

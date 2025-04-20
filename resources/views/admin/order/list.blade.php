@@ -39,20 +39,22 @@
                 @foreach($orderList as $data)
                     <tr>
                         <td>{{ $data->created_at->format('j-F-Y') }}</td>
-                        <td><a href="{{ route('orderDetailPage',$data->order_code) }}">{{ $data->order_code  }}</a></td>
+                        <td><a href="{{ route('orderDetailPage',$data->order_code) }}" class="order_code">{{ $data->order_code  }}</a></td>
                         <td>{{ $data->user_name }}</td>
                         <td>
-                            <select name="status" id="status" class="form-control">
-                                <option value="" @if( $data->status == 0 ) selected @endif >Pending</option>
-                                <option value="" @if( $data->status == 1 ) selected @endif >Completed</option>
-                                <option value="" @if( $data->status == 2 ) selected @endif >Incompleted</option>
+                            <select name="status" id="status" class="form-control status">
+                                <option value="0" @if( $data->status == 0 ) selected @endif >Pending</option>
+                                @if( $data->count <= $data->stock )
+                                    <option value="1" @if( $data->status == 1 ) selected @endif >Completed</option>
+                                @endif
+                                <option value="2" @if( $data->status == 2 ) selected @endif >Incompleted</option>
                             </select>
                         </td>
                         <td>
                             @if( $data->status == 0 )
                                 <i class="fa-solid fa-hourglass-half text-warning"></i>   
                             @elseif( $data->status == 1 )
-                                <i class="fa-solid fa-check text-primary"></i>
+                                <i class="fa-solid fa-check text-success"></i>
                             @elseif( $data->status == 2 )
                                 <i class="fa-solid fa-xmark text-danger"></i>
                             @endif
@@ -64,5 +66,37 @@
         </div>
     </div>
 </div>
+
+@endsection
+
+@section('js-script')
+
+<script>
+    $(document).ready(function(){
+        $('.status').change(function()
+        {
+            status = $(this).val();
+            orderCode = $(this).parents('tr').find('.order_code').text();
+
+            data = {
+                'order_code' : orderCode ,
+                'status' : status
+            }
+
+            $.ajax({
+                type : 'get' ,
+                url : '/admin/order/status/change' ,
+                data : data,
+                dataType : 'json' ,
+                success : function(res)
+                {
+                    res.status == 'success' ? location.reload() : '' ;
+                }
+            })
+            
+            
+        })
+    })
+</script>
 
 @endsection

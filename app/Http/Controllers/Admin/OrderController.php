@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\PaymentHistories;
 use App\Http\Controllers\Controller;
@@ -12,8 +13,16 @@ class OrderController extends Controller
     # order list page
     public function orderListPage()
     {
-        $orderList = Order::select('orders.created_at', 'orders.order_code', 'orders.status', 'users.first_name as user_name')
+        $orderList = Order::select(
+                            'orders.created_at', 
+                            'orders.order_code', 
+                            'orders.status', 
+                            'orders.count',
+                            'products.stock',
+                            'users.first_name as user_name'
+                            )
                             ->leftJoin('users', 'orders.user_id', 'users.id')
+                            ->leftJoin('products' , 'orders.product_id', 'products.id')
                             ->groupBy('order_code')
                             ->orderBy('created_at', 'desc')
                             ->get();
@@ -31,6 +40,7 @@ class OrderController extends Controller
                             'orders.order_code as order_code', 
                             'orders.created_at as order_date',
                             'orders.total_price as order_total_price',
+                            'products.id as product_id',
                             'products.image as product_image',
                             'products.name as product_name',
                             'products.stock as product_stock',
@@ -56,7 +66,23 @@ class OrderController extends Controller
                                             ->where('order_code', $orderCode)
                                             ->first();
 
-        return view('admin.order.detail', compact('orderDetail', 'paymentHistory'));
+        $status = true;
+
+        foreach($orderDetail as $item)
+        {
+            if($item->order_count <= $item->product_stock)
+            {
+                $status = true;
+            }
+            else
+            {
+                $status = false;
+                break;
+            }
+        }
+
+
+        return view('admin.order.detail', compact('orderDetail', 'paymentHistory', 'status'));
     }
 
     # order reject function
@@ -78,14 +104,36 @@ class OrderController extends Controller
     # order confirm function
     public function orderConfirm(Request $request)
     {
-        Order::where('order_code', $request->orderCode)
+        logger($request->all());
+
+        Order::where('order_code', $request[0]['order_code'])
             ->update([
                 'status' => 1
             ]);
+        
+        foreach($request->all() as $item)
+        {
+            Product::where('id',$item['product_id'])->decrement('stock',$item['order_count']);
+        }
 
         return response()->json([
             'status' => 'success' ,
             'message' => 'Order confirmed successful!'
-        ]);
+        ],200);
+    }
+
+    # order status change
+    public function statusChange(Request $request)
+    {
+        logger($request->toArray());
+        Order::where('order_code', $request->order_code)
+            ->update([
+                'status' => $request->status
+            ]);
+
+        return response()->json([
+            'status' => 'success' ,
+            'message' => 'Order status update successful!'
+        ], 200);
     }
 }

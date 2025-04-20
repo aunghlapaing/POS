@@ -18,7 +18,7 @@ class ProfileController extends Controller
     }
 
     #change new password
-    public function changePassword (Request $request)
+    public function changeAdminPassword (Request $request)
     {
 
         //user registered password and oldPassword should be same
@@ -31,7 +31,7 @@ class ProfileController extends Controller
 
        if( Hash::check($oldPassword, $userRegisteredPassword))
         {
-            $this->checkValidation($request, 'changePassword');
+            $this->checkValidation($request);
             #dd($request->toArray());
 
             $data = $this->getData($request);
@@ -46,7 +46,7 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return to_route('login');
+        return view('authentication.login');
     }
 
     #get data method

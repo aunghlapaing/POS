@@ -73,15 +73,7 @@
             @endif
 
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link" href="{{ url('admin/order/list') }}"><i class="fa-solid fa-cart-shopping"></i><span>Order Board </span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i><span>Setting </span></a>
             </li>
 
             <li class="nav-item">

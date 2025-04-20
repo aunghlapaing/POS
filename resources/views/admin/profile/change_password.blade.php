@@ -11,7 +11,7 @@
 
                     <div class="card">
                         <div class="card-body shadow">
-                            <form action="{{ route('changePassword') }}" method="post" class="p-3 rounded">
+                            <form action="{{ route('changeAdminPassword') }}" method="post" class="p-3 rounded">
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label">Old Password</label>

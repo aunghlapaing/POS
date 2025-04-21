@@ -65,7 +65,7 @@ class ProductController extends Controller
         Comment::create($data);
 
         # sweet-alert is not working within this template
-        # Alert::success('Successful!', 'Comment post successful.');
+        Alert::success('Successful!', 'Comment post successful.');
 
         return back();
 
